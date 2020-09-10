@@ -1,0 +1,22 @@
+@import "../styles/colors";
+
+.loginButton {
+  margin: auto;
+  color: $white;
+  font-size: Min(1.5rem, 6vw);
+  border: 0;
+  padding: .5rem 1rem;
+  background-color: $primaryDark;
+  border-radius: 2rem;
+  transition: all .3s ease;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: $primaryLight;
+  }
+
+  svg {
+    padding-right: 0.2rem;
+  }
+}

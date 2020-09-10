@@ -1,0 +1,21 @@
+@import "../styles/colors";
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  height: 4rem;
+  justify-content: center;
+  width: 100vw;
+  color: $greyTextSecondary;
+  background: $white;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    color: $primaryDark;
+
+    &:hover {
+      color: $greyTextSecondary;
+    }
+  }
+}
