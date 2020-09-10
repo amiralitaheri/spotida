@@ -1,21 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import LandingPage from './pages/LandingPage'
 import * as serviceWorker from './serviceWorker';
 import {
     BrowserRouter as Router,
     Switch,
     Route
 } from "react-router-dom";
+import {createStore, applyMiddleware, compose} from 'redux';
+import {Provider} from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import rootReducer from "./redux/reducers";
+import LandingPage from './pages/LandingPage'
+import CallbackPage from "./pages/CallbackPage";
+
+const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ReduxThunk)));
 
 ReactDOM.render(
     <React.StrictMode>
-        <Router>
-            <Switch>
-                <Route path='/' component={LandingPage}/>
-            </Switch>
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <Switch>
+                    <Route path='/' exact component={LandingPage}/>
+                    <Route path='/callback' component={CallbackPage}/>
+                </Switch>
+            </Router>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );
