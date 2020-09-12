@@ -1,0 +1,65 @@
+@import "../styles/colors";
+
+.nav {
+  background-color: $white;
+  display: flex;
+  width: fit-content;
+  height: 100vh;
+  align-items: center;
+  border-right: 1px solid $greyBorder;
+}
+
+.ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    button {
+      background-color: transparent;
+      border: none;
+      color: $greyIcon;
+      padding: 0.5rem;
+
+      svg {
+        color: inherit;
+        width: 2rem;
+        height: 2rem;
+      }
+
+      &:focus {
+        outline: none;
+        color: $greyTextPrimary;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          cursor: pointer;
+          color: $greyTextPrimary;
+        }
+      }
+    }
+  }
+}
+
+#selected {
+  display: flex;
+  align-items: center;
+
+  &:after {
+    content: '';
+    border: 2px solid $primaryLight;
+    border-radius: 5px;
+    height: 1.8rem;
+  }
+
+  button {
+    svg {
+      color: $primaryLight;
+    }
+
+    &:hover {
+      cursor: initial;
+    }
+  }
+}
