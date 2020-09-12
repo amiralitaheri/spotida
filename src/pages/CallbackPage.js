@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from "react-router";
 
 export default (props) => {
-    const isDataLoaded = useSelector(state => state.isDataLoaded);
+    const isDataLoaded = useSelector(state => state.data.isDataLoaded);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export default (props) => {
     }, []);
 
     if (isDataLoaded === true) {
-        return <Redirect to="/"/>
+        return <Redirect to="/dashboard"/>
     }
 
     return <h1>Loading...</h1>
