@@ -1,0 +1,33 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "info diagram diagram" "info topArtist topTrack" "info topArtist topTrack";
+  width: 100%;
+  height: 100vh;
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+}
+
+.info {
+  grid-area: info;
+
+}
+
+.diagram {
+  grid-area: diagram;
+
+}
+
+.topArtists {
+  grid-area: topArtist;
+
+}
+
+.topTracks {
+  grid-area: topTrack;
+}
+

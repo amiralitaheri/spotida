@@ -1,0 +1,14 @@
+.artist {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 8rem;
+    border-radius: 5px;
+  }
+
+  h5 {
+    padding-left: 1rem;
+  }
+}

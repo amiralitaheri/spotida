@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux'
+import {data} from "../../utils/sampleData";
 
 const dataInitialState = {
     token: null,
@@ -12,7 +13,7 @@ const dataInitialState = {
     tracksL: null
 }
 
-const dataReducer = (state = dataInitialState, action) => {
+const dataReducer = (state = data, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {

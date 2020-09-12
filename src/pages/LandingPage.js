@@ -8,7 +8,7 @@ import Container from "../components/Container";
 export default () => {
     return <Container>
         <main className={styles.main}>
-            <Card>
+            <Card className={styles.card}>
                 <div><h1>Spotify Data</h1></div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate fugit illo iusto mollitia
                     repellat

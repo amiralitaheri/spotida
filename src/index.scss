@@ -21,6 +21,14 @@ p {
   padding: 2rem;
 }
 
+hr {
+  width: 100%;
+  background: linear-gradient(to right, $primaryLight, $primaryDark, $primaryLight);
+  height: 2px;
+  border: none;
+  border-radius: 5px;
+}
+
 #root {
-  display: flex;
+  background-color: $background;
 }

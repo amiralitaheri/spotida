@@ -11,7 +11,7 @@ export const saveDate = (data) => ({
 })
 
 export const getData = () => (dispatch, getState) => {
-    const {token} = getState();
+    const {token} = getState().data;
     const options = {
         headers: {
             'Authorization': `Bearer ${token}`,
