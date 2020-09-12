@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import {
     BrowserRouter as Router,
@@ -13,6 +13,7 @@ import ReduxThunk from 'redux-thunk';
 import rootReducer from "./redux/reducers";
 import LandingPage from './pages/LandingPage'
 import CallbackPage from "./pages/CallbackPage";
+import DashboardPage from "./pages/DashboardPage";
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Switch>
                     <Route path='/' exact component={LandingPage}/>
                     <Route path='/callback' component={CallbackPage}/>
+                    <Route path='/dashboard' component={DashboardPage}/>
                 </Switch>
             </Router>
         </Provider>
