@@ -1,3 +1,5 @@
+import {combineReducers} from 'redux'
+
 const dataInitialState = {
     token: null,
     isDataLoaded: false,
@@ -34,5 +36,22 @@ const dataReducer = (state = dataInitialState, action) => {
             return state;
     }
 }
-
-export default dataReducer;
+const tabInitialState = {
+    selectedTab: 'stats'
+}
+const tabReducer = (state = tabInitialState, action) => {
+    switch (action.type) {
+        case 'CHANGE_TAB':
+            return {
+                ...state,
+                selectedTab: action.payload.selectedTab
+            }
+        default:
+            return state;
+    }
+}
+const rootReducer = combineReducers({
+    data: dataReducer,
+    tab: tabReducer
+})
+export default rootReducer;

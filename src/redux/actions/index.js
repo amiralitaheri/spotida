@@ -37,5 +37,13 @@ export const getData = () => (dispatch, getState) => {
 
 }
 
+export const changeTab = (tabName) => (
+    {
+        type: 'CHANGE_TAB',
+        payload: {
+            selectedTab: tabName
+        }
+    })
+
 
 
