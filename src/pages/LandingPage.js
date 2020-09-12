@@ -6,7 +6,7 @@ import Card from "../components/Card";
 import Container from "../components/Container";
 
 export default () => {
-    return <Container>
+    return <Container className={styles.container}>
         <main className={styles.main}>
             <Card className={styles.card}>
                 <div><h1>Spotify Data</h1></div>

@@ -1,0 +1,27 @@
+@import "../styles/colors";
+
+.track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+
+  img {
+    width: 8rem;
+    border-radius: 5px;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  h5{
+    margin: 0 0 .3rem;
+  }
+  span{
+    color: $greyTextSecondary;
+    font-size: .8em;
+    font-weight: lighter;
+  }
+}

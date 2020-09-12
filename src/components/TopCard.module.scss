@@ -1,0 +1,62 @@
+@import "../styles/colors";
+
+.card {
+  height: 90%;
+  padding: 0;
+
+  @media (max-width: 900px) {
+    height: 100vh;
+    margin: 1rem auto;
+  }
+
+  ol {
+    overflow-y: scroll;
+    padding: 0;
+    width: 90%;
+    margin: auto;
+    list-style: none;
+
+    &::-webkit-scrollbar {
+      width: .3em;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $greyBorder;
+      border-radius: .3em;
+    }
+  }
+
+}
+
+.title {
+  align-self: start;
+  padding-left: 1em;
+}
+
+.buttons {
+  align-self: start;
+  padding-left: 1em;
+
+  button {
+    color: $greyTextSecondary;
+    background-color: transparent;
+    border: none;
+    padding-right: .5em;
+    @media (hover: hover) {
+      &:hover {
+        color: $greyTextPrimary;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 5px 5px -1px $primaryLight;;
+      color: $greyTextPrimary;
+    }
+  }
+}
+
+#selected {
+  color: $primaryLight;
+  border-bottom: 2px solid $primaryLight;
+}

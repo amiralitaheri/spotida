@@ -12,7 +12,7 @@ export default (props) => {
         token = token.substring(13, token.length - 1);
         dispatch(login(token));
         dispatch(getData());
-    }, []);
+    }, [dispatch, props.location.hash]);
 
     if (isDataLoaded === true) {
         return <Redirect to="/dashboard"/>
