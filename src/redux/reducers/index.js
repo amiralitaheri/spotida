@@ -13,7 +13,7 @@ const dataInitialState = {
     tracksL: null
 }
 
-const dataReducer = (state = data, action) => {
+const dataReducer = (state = dataInitialState, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
@@ -31,6 +31,9 @@ const dataReducer = (state = data, action) => {
                 tracksS: action.payload.tracksS,
                 tracksM: action.payload.tracksM,
                 tracksL: action.payload.tracksL,
+                topGenres: action.payload.topGenres,
+                audioFeatures: action.payload.audioFeatures,
+                audioFeaturesAverage: action.payload.audioFeaturesAverage,
                 isDataLoaded: true,
             }
         default:

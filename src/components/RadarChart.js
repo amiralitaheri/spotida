@@ -1,11 +1,13 @@
 import React from "react";
 import {Radar} from 'react-chartjs-2';
+import {useSelector} from "react-redux";
 
 export default () => {
+    const values = useSelector(state => state.data.audioFeaturesAverage);
     const data = {
-        labels: ['Acoustic', 'Dance', 'Energy', 'Instrumental', 'Loudness', 'Positive vibe'],
+        labels: ['Acoustic', 'Dance', 'Energy', 'Instrumental', 'Positive vibe'],
         datasets: [{
-            data: [30, 80, 75, 25, 80, 80],
+            data: [values.acousticness * 100, values.danceability * 100, values.energy * 100, values.instrumentalness * 100, values.valence * 100],
             backgroundColor: 'rgba(30,215,96,0.5)',
             borderColor: '#1ed760',
         }],
