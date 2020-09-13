@@ -10,8 +10,9 @@
 
   ol {
     overflow-y: scroll;
-    padding: 0;
-    width: 90%;
+    padding: 5%;
+    box-sizing: border-box;
+    width: 100%;
     margin: auto;
     list-style: none;
 

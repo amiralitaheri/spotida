@@ -5,6 +5,8 @@
   flex-direction: row;
   align-items: center;
   padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 
   img {
     width: clamp(5rem, 10vw, 8rem);
@@ -19,6 +21,7 @@
 
   h5 {
     margin: 0 0 .3rem;
+    font-size: initial;
   }
 
   span {
