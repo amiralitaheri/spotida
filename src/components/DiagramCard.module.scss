@@ -1,0 +1,27 @@
+.card {
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0;
+  @media (max-width: 900px) {
+    flex-wrap: wrap;
+  }
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  //height: 100%;
+  width: 90%;
+  box-sizing: border-box;
+  padding: 2rem 0;
+
+  @media (max-width: 900px) {
+    padding: Min(2rem, 5vw);
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
