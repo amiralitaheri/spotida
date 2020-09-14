@@ -3,6 +3,39 @@
 .card {
   img {
     border-radius: 1000px;
-    width: clamp(5rem,10vw,8rem);
+    width: clamp(5rem, 10vw, 8rem);
+    z-index: 2;
   }
 }
+
+.personalMassage {
+  padding: 0;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+
+  li {
+    padding: .5rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: end;
+    gap: .3rem;
+  }
+}
+
+.tag {
+  color: $greyTextSecondary;
+
+  &:after {
+    content: ':';
+  }
+}
+
+.value {
+  font-weight: bold;
+}
+

@@ -41702,5 +41702,115 @@ export const data = {
         valence: 0.4542371428571427,
         tempo: 118.96565714285714,
         duration_ms: 207579.25714285715
+    },
+    leastPopularArtist: {
+        external_urls: {
+            spotify: 'https://open.spotify.com/artist/6V0UIhxibbgh9q9eYKImW7'
+        },
+        followers: {
+            href: null,
+            total: 12487
+        },
+        genres: [],
+        href: 'https://api.spotify.com/v1/artists/6V0UIhxibbgh9q9eYKImW7',
+        id: '6V0UIhxibbgh9q9eYKImW7',
+        images: [
+            {
+                height: 640,
+                url: 'https://i.scdn.co/image/1383ec793257d13dc34dffe6129308191d003f41',
+                width: 640
+            },
+            {
+                height: 320,
+                url: 'https://i.scdn.co/image/62fff3610d270bded159b006d060d83df4a5d5a1',
+                width: 320
+            },
+            {
+                height: 160,
+                url: 'https://i.scdn.co/image/e8dc9aff0af4887064f3a2fc87915ab2e7a33e2d',
+                width: 160
+            }
+        ],
+        name: 'FRANKIE',
+        popularity: 33,
+        type: 'artist',
+        uri: 'spotify:artist:6V0UIhxibbgh9q9eYKImW7'
+    },
+    leastPopularTrack: {
+        album: {
+            album_type: 'SINGLE',
+            artists: [
+                {
+                    external_urls: {
+                        spotify: 'https://open.spotify.com/artist/2oX42qP5ineK3hrhBECLmj'
+                    },
+                    href: 'https://api.spotify.com/v1/artists/2oX42qP5ineK3hrhBECLmj',
+                    id: '2oX42qP5ineK3hrhBECLmj',
+                    name: 'Andy Grammer',
+                    type: 'artist',
+                    uri: 'spotify:artist:2oX42qP5ineK3hrhBECLmj'
+                }
+            ],
+            available_markets: [],
+            external_urls: {
+                spotify: 'https://open.spotify.com/album/5YpK59N59zCX7Hkc9aBiGv'
+            },
+            href: 'https://api.spotify.com/v1/albums/5YpK59N59zCX7Hkc9aBiGv',
+            id: '5YpK59N59zCX7Hkc9aBiGv',
+            images: [
+                {
+                    height: 640,
+                    url: 'https://i.scdn.co/image/ab67616d0000b27358dd2ff215d3baa7d4bd194f',
+                    width: 640
+                },
+                {
+                    height: 300,
+                    url: 'https://i.scdn.co/image/ab67616d00001e0258dd2ff215d3baa7d4bd194f',
+                    width: 300
+                },
+                {
+                    height: 64,
+                    url: 'https://i.scdn.co/image/ab67616d0000485158dd2ff215d3baa7d4bd194f',
+                    width: 64
+                }
+            ],
+            name: 'Fresh Eyes',
+            release_date: '2016-01-01',
+            release_date_precision: 'day',
+            total_tracks: 1,
+            type: 'album',
+            uri: 'spotify:album:5YpK59N59zCX7Hkc9aBiGv'
+        },
+        artists: [
+            {
+                external_urls: {
+                    spotify: 'https://open.spotify.com/artist/2oX42qP5ineK3hrhBECLmj'
+                },
+                href: 'https://api.spotify.com/v1/artists/2oX42qP5ineK3hrhBECLmj',
+                id: '2oX42qP5ineK3hrhBECLmj',
+                name: 'Andy Grammer',
+                type: 'artist',
+                uri: 'spotify:artist:2oX42qP5ineK3hrhBECLmj'
+            }
+        ],
+        available_markets: [],
+        disc_number: 1,
+        duration_ms: 198001,
+        explicit: false,
+        external_ids: {
+            isrc: 'QMRSZ1600579'
+        },
+        external_urls: {
+            spotify: 'https://open.spotify.com/track/4nMlau89VAjmV7agkl7OY3'
+        },
+        href: 'https://api.spotify.com/v1/tracks/4nMlau89VAjmV7agkl7OY3',
+        id: '4nMlau89VAjmV7agkl7OY3',
+        is_local: false,
+        name: 'Fresh Eyes',
+        popularity: 0,
+        preview_url: null,
+        track_number: 1,
+        type: 'track',
+        uri: 'spotify:track:4nMlau89VAjmV7agkl7OY3'
     }
 }

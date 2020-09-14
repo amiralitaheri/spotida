@@ -31,6 +31,9 @@ export const getData = () => (dispatch, getState) => {
     ).then(([me, artistsS, artistsM, artistsL, tracksS, tracksM, tracksL]) => {
         const topGenres = calculateTopGenres([artistsS, artistsM, artistsL]);
         const trackIds = getTrackIds([tracksS, tracksM, tracksL]);
+        const leastPopularTrack = getLeastPopular(tracksL);
+        const leastPopularArtist = getLeastPopular(artistsL);
+
         Promise.all([
             fetch(`https://api.spotify.com/v1/audio-features/?ids=${trackIds.slice(0, 70).join(',')}`, options).then(response => response.json()),
             fetch(`https://api.spotify.com/v1/audio-features/?ids=${trackIds.slice(71, trackIds.length).join(',')}`, options).then(response => response.json()),
@@ -49,7 +52,9 @@ export const getData = () => (dispatch, getState) => {
                 token,
                 topGenres,
                 audioFeatures,
-                audioFeaturesAverage
+                audioFeaturesAverage,
+                leastPopularTrack,
+                leastPopularArtist
             }));
         }).catch((err) => {
             console.log(err);
@@ -59,6 +64,18 @@ export const getData = () => (dispatch, getState) => {
         console.log(err);
     });
 }
+
+const getLeastPopular = (list) => {
+    let result = null;
+    let resultPopularity = 100;
+    list.items.forEach(item => {
+        if (item.popularity < resultPopularity) {
+            resultPopularity = item.popularity;
+            result = item;
+        }
+    });
+    return result;
+};
 
 const getAverageFromAudioFeatures = (audioFeatures) => {
     const average = {
