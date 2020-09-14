@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 export default () => {
     const values = useSelector(state => state.data.audioFeaturesAverage);
     const data = {
-        labels: ['Acoustic', 'Dance', 'Energy', 'Instrumental', 'Positive vibe'],
+        labels: ['Acoustic', 'Dance', 'Energy', 'Instrumental', 'Positiveness'],
         datasets: [{
             data: [values.acousticness * 100, values.danceability * 100, values.energy * 100, values.instrumentalness * 100, values.valence * 100],
             backgroundColor: 'rgba(30,215,96,0.5)',
@@ -29,8 +29,7 @@ export default () => {
                 fontColor: '#A4A4A4',
             },
         },
-        responsive: true,
-        aspectRatio: 1
+        maintainAspectRatio: false
     }
     return <Radar data={data} options={options}/>
 }

@@ -31,7 +31,8 @@ export default () => {
                 boxWidth: 12,
                 fontColor: '#A4A4A4'
             }
-        }
+        },
+        maintainAspectRatio:false
     }
     return <Doughnut data={data} options={options}/>
 }
