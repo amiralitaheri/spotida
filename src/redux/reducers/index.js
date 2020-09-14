@@ -36,6 +36,7 @@ const dataReducer = (state = data, action) => {
                 audioFeaturesAverage: action.payload.audioFeaturesAverage,
                 leastPopularArtist: action.payload.leastPopularArtist,
                 leastPopularTrack: action.payload.leastPopularTrack,
+                genres: action.payload.genres,
                 isDataLoaded: true,
             }
         default:

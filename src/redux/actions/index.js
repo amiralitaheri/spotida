@@ -27,8 +27,9 @@ export const getData = () => (dispatch, getState) => {
             fetch('https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50', options).then(response => response.json()),
             fetch('https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=50', options).then(response => response.json()),
             fetch('https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50', options).then(response => response.json()),
+            fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', options).then(response => response.json()),
         ]
-    ).then(([me, artistsS, artistsM, artistsL, tracksS, tracksM, tracksL]) => {
+    ).then(([me, artistsS, artistsM, artistsL, tracksS, tracksM, tracksL, genres]) => {
         const topGenres = calculateTopGenres([artistsS, artistsM, artistsL]);
         const trackIds = getTrackIds([tracksS, tracksM, tracksL]);
         const leastPopularTrack = getLeastPopular(tracksL);
@@ -54,7 +55,8 @@ export const getData = () => (dispatch, getState) => {
                 audioFeatures,
                 audioFeaturesAverage,
                 leastPopularTrack,
-                leastPopularArtist
+                leastPopularArtist,
+                genres
             }));
         }).catch((err) => {
             console.log(err);

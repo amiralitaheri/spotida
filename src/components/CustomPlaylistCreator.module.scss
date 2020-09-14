@@ -1,0 +1,24 @@
+@import '../styles/colors';
+
+.card {
+  width: Min(700px, 100%);
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin: 13px 0;
+  border: 2px solid $greyBorder;
+  padding: .5rem;
+  color: $greyTextPrimary;
+  font-size: 1rem;
+
+  &:focus, &:hover {
+    border: 2px solid $greyTextSecondary;
+    outline: none;
+  }
+}
