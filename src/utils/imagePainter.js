@@ -74,7 +74,7 @@ const photos = async (title, images, canvas) => {
             );
 
             ctx.fillStyle = "#555555";
-            ctx.font = '30px Indie Flower';
+            ctx.font = '42px Indie Flower';
             // ctx.textAlign = 'center'
             ctx.fillText(`#${counter + 1} ${images[counter++].name}`, x + indent, y + indent + photoHeight * 4 / 5, photoWidth - 2 * indent);
             ctx.restore();

@@ -27,12 +27,12 @@ export default () => {
         const imageStyle = document.getElementById('imageStyle').value;
         let images;
         if (imageSource === 'artists') {
-            images = data[imageSource + timeRange].items.map(artist => ({
+            images = data[imageSource + timeRange].items.slice(0,20).map(artist => ({
                 name: artist.name,
                 url: artist.images[1].url
             }))
         } else {
-            images = data[imageSource + timeRange].items.map(track => ({
+            images = data[imageSource + timeRange].items.slice(0,20).map(track => ({
                 name: track.name,
                 url: track.album.images[1].url
             }))
