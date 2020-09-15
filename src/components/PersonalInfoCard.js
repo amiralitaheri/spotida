@@ -4,8 +4,8 @@ import Card from "./Card";
 import {cn} from "../utils";
 import {useSelector} from "react-redux";
 
-const getPersonalMassage = (topGenre, audioFeaturesAverage) => {
-    let massage = `A big ${topGenre} fan,`;
+const getPersonalmessage = (topGenre, audioFeaturesAverage) => {
+    let message = `A big ${topGenre} fan,`;
 
     let key = null;
     let value = -1;
@@ -19,37 +19,37 @@ const getPersonalMassage = (topGenre, audioFeaturesAverage) => {
     )
     switch (key) {
         case 'danceability':
-            massage += ' who loves to dance!!';
+            message += ' who loves to dance!!';
             break;
         case 'energy':
-            massage += ' who is full of energy.';
+            message += ' who is full of energy.';
             break;
         case 'acousticness':
-            massage += ' who loves acoustic songs.';
+            message += ' who loves acoustic songs.';
             break;
         case 'instrumentalness':
-            massage += ' who loves classics.';
+            message += ' who loves classics.';
             break;
         case 'valence':
-            massage += ' who is positive all the time.';
+            message += ' who is positive all the time.';
             break;
         default:
-            massage += ' who is an Error!!';
+            message += ' who is an Error!!';
     }
 
-    return massage;
+    return message;
 }
 
 
 export default (props) => {
     const data = useSelector(state => state.data);
-    let personalMassage = getPersonalMassage(data.topGenres[0][0], data.audioFeaturesAverage);
+    let personalmessage = getPersonalmessage(data.topGenres[0][0], data.audioFeaturesAverage);
 
     return <Card className={cn(props.className, styles.card)}>
         <img src={data.me.images[0].url} alt='profile'/>
         <h2>{data.me.display_name}</h2>
         <hr/>
-        <p className={styles.personalMassage}>{personalMassage}</p>
+        <p className={styles.personalmessage}>{personalmessage}</p>
         <ul className={styles.list}>
             <li><span className={styles.tag}>Top Artist</span><span
                 className={styles.value}>{data.artistsL.items[0].name}</span></li>

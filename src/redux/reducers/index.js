@@ -13,7 +13,7 @@ const dataInitialState = {
     tracksL: null
 }
 
-const dataReducer = (state = data, action) => {
+const dataReducer = (state = dataInitialState, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {

@@ -27,7 +27,7 @@ export default React.memo((props) => {
         <span className={styles.hint}>Tap to remove</span>
         <div className={cn(props.className, styles.container)}>
             <ul className={styles.tags}>{props.value.map(genre => <li key={genre}
-                                                                      tabindex={0}
+                                                                      tabIndex={0}
                                                                       onClick={event => remove(event, genre)}>
                 <span>{genre}</span></li>)}</ul>
             <input ref={textField} list='genres' className={styles.input}/>
