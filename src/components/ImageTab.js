@@ -13,11 +13,11 @@ const date = new Date();
 
 export default () => {
     const canvas = useRef();
+    const downloadLink = useRef();
     const data = useSelector(state => state.data);
     const [canvasState, setCanvasState] = useState('EMPTY');
-    const download = useCallback(event => {
-        event.preventDefault();
-        window.open(canvas.current.toDataURL('image/png'));
+    const download = useCallback(element => {
+        element.href = canvas.current.toDataURL('image/jpg');
     }, []);
 
     const createImage = useCallback(event => {
@@ -40,6 +40,7 @@ export default () => {
         imagePainter(`my top ${imageSource} ${monthNames[date.getMonth()]} ${date.getFullYear()}`, images, imageStyle, canvas.current).then(
             () => {
                 setCanvasState('FULL');
+                downloadLink.current.href = canvas.current.toDataURL('image/jpg');
             }
         );
     }, [data])
@@ -78,7 +79,8 @@ export default () => {
                 <>
                     <p className={styles.hint}>Download to see full quality</p>
                     <div className={styles.buttonContainer}>
-                        <Button className={styles.download} onClick={download}><FaDownload/> Download</Button>
+                        <a ref={downloadLink} className={styles.download}
+                           download="spotify-data.jpg"><FaDownload/> Download</a>
                     </div>
                 </> : null}
 

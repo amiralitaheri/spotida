@@ -58,10 +58,11 @@ const photos = async (title, images, canvas) => {
             const avatarUrl = images[counter].url || defaultAvatarUrl;
 
             const img = await new Promise(((resolve, reject) => {
-                let img = new Image()
-                img.onload = () => resolve(img)
-                img.onerror = reject
-                img.src = avatarUrl
+                let img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = avatarUrl;
+                img.crossOrigin = 'Anonymous';
             }));
 
             ctx.drawImage(
@@ -149,10 +150,11 @@ const circle = async (images, canvas) => {
             const avatarUrl = images[counter++].url || defaultAvatarUrl;
 
             const img = await new Promise(((resolve, reject) => {
-                let img = new Image()
-                img.onload = () => resolve(img)
-                img.onerror = reject
-                img.src = avatarUrl
+                let img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.crossOrigin = 'Anonymous';
+                img.src = avatarUrl;
             }));
 
             ctx.drawImage(
