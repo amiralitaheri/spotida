@@ -5,7 +5,6 @@ import Slider from "./Slider";
 import {useSelector} from "react-redux";
 import Button from "./Button";
 import GenreSelection from "./GenreSelection";
-import {useTraceUpdate} from "../utils";
 
 const reducer = (state, action) => {
     switch (action.name) {
@@ -98,7 +97,6 @@ export default (props) => {
     }, [data])
     const [state, dispatch] = useReducer(reducer, initialState);
     const [playlistState, setPlaylistState] = useState({state: 'NORMAL'});
-    console.log(playlistState);
     const handleChange = useCallback((name, event, newValue) => {
         dispatch({
             name: name,
@@ -176,7 +174,7 @@ export default (props) => {
     }, [state, data]);
 
     // todo: change with snackbar or something
-    let buttonText = '';
+    let buttonText;
     switch (playlistState.state) {
         case 'PENDING':
             buttonText = 'Pending...';
@@ -199,17 +197,17 @@ export default (props) => {
         <form className={styles.form}>
             <label htmlFor='name'>Name</label>
             <input id='name' type="text" value={state.name}
-                   onChange={useCallback(event => handleChange('name', event, event.target.value), [])}
+                   onChange={useCallback(event => handleChange('name', event, event.target.value), [handleChange])}
                    className={styles.input}/>
             <label>Genres (maximum: 5)</label>
             <GenreSelection value={state.genres}
-                            onChange={useCallback((newValue) => handleChange('genres', null, newValue), [])}/>
+                            onChange={useCallback((newValue) => handleChange('genres', null, newValue), [handleChange])}/>
             {Object.keys(sliderSetting).map(key => {
                 return <Slider
                     key={key}
                     name={key}
                     value={state[key]}
-                    onChange={useCallback((event, newValue) => handleChange(key, event, newValue), [])}
+                    onChange={useCallback((event, newValue) => handleChange(key, event, newValue), [key])}
                     aria-labelledby={key}
                     valueLabelDisplay="auto"
                     min={sliderSetting[key].min}

@@ -7,15 +7,34 @@ import Footer from "../components/Footer";
 import StateTab from "../components/StateTab";
 import styles from './DashboardPage.module.scss';
 import PlaylistTab from "../components/PlaylistTab";
+import ImageTab from "../components/ImageTab";
+import HelpUsTab from "../components/HelpUsTab";
 
 export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
+    const selectedTab = useSelector(state => state.tab.selectedTab);
+    let tab = null;
+    switch (selectedTab) {
+        case "stats":
+            tab = <StateTab/>
+            break;
+        case "playlist":
+            tab = <PlaylistTab/>
+            break;
+        case 'image':
+            tab = <ImageTab/>
+            break;
+        case 'help':
+            tab = <HelpUsTab/>
+            break;
+        default:
+            throw new Error('Tab not found!');
+    }
     return (isDataLoaded) ?
         <Container className={styles.container}>
             <Nav/>
             <div className={styles.main}>
-                {/*<StateTab/>*/}
-                <PlaylistTab/>
+                {tab}
                 <Footer/>
             </div>
         </Container> : <Redirect to='/'/>
