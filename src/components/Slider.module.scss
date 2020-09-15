@@ -1,3 +1,13 @@
+@import "../styles/colors";
+
 .label {
   text-transform: capitalize;
+  font-weight: bold;
+}
+
+.description {
+  padding: 0;
+  text-align: start;
+  color: $greyTextSecondary;
+  font-weight: lighter;
 }

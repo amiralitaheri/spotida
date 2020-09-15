@@ -37,6 +37,7 @@ const CustomSlider = withStyles({
 export default React.memo((props) => {
     return <>
         <label id={props.name} className={styles.label}>{props.name}</label>
+        <p className={styles.description}>{props.description}</p>
         <CustomSlider
             {...props}
         />
