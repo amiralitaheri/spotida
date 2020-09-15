@@ -11,6 +11,7 @@
 .form {
   label {
     padding: .3rem;
+
     &:after {
       content: ':';
     }
@@ -33,29 +34,36 @@
   grid-template-rows: 1fr;
 }
 
-.canvas{
+.canvas {
   margin: 2rem;
   width: 100%;
 }
-.buttonContainer{
+
+.buttonContainer {
   display: flex;
 }
 
-.twitter{
+.twitter {
   background-color: $twitter;
   font-size: 1rem;
   margin: .5rem;
 }
-.download{
+
+.download {
   font-size: 1rem;
   margin: .5rem;
   text-decoration: none;
   color: $primaryLight;
-  &:hover{
+
+  &:hover {
     color: $greyTextPrimary;
   }
 }
 
-.hint{
+.hint {
   padding: 0;
+}
+
+.button {
+  font-size: 1rem;
 }

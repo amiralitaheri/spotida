@@ -69,7 +69,7 @@ export default () => {
                         <option value="circle">Circle</option>
                     </select>
                 </div>
-                <Button onClick={createImage}>Create</Button>
+                <Button className={styles.button} onClick={createImage}>Create</Button>
             </form>
             <canvas className={styles.canvas} ref={canvas}/>
             {canvasState === 'FULL' ?
