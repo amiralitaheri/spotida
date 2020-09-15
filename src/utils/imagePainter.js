@@ -11,6 +11,8 @@ export default async (title, images, styles, canvas) => {
 const toRad = (x) => x * (Math.PI / 180);
 
 const photos = async (title, images, canvas) => {
+    await document.fonts.load('48px Indie Flower');
+    images = images.slice(0, 20);
     const photoWidth = 200;
     const photoHeight = 300;
     const paddingWidth = 200;

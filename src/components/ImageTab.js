@@ -16,9 +16,6 @@ export default () => {
     const downloadLink = useRef();
     const data = useSelector(state => state.data);
     const [canvasState, setCanvasState] = useState('EMPTY');
-    const download = useCallback(element => {
-        element.href = canvas.current.toDataURL('image/jpg');
-    }, []);
 
     const createImage = useCallback(event => {
         event.preventDefault();
@@ -27,12 +24,12 @@ export default () => {
         const imageStyle = document.getElementById('imageStyle').value;
         let images;
         if (imageSource === 'artists') {
-            images = data[imageSource + timeRange].items.slice(0,20).map(artist => ({
+            images = data[imageSource + timeRange].items.map(artist => ({
                 name: artist.name,
                 url: artist.images[1].url
             }))
         } else {
-            images = data[imageSource + timeRange].items.slice(0,20).map(track => ({
+            images = data[imageSource + timeRange].items.map(track => ({
                 name: track.name,
                 url: track.album.images[1].url
             }))
