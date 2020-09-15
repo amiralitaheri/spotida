@@ -1,13 +1,15 @@
 @import "../styles/colors";
 
-.container{
+.container {
   width: 100vw;
   height: 100vh;
   flex-direction: row;
 }
 
-.main{
+.main {
   height: 100vh;
   width: 100%;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
