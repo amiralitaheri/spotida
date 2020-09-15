@@ -206,7 +206,7 @@ export default (props) => {
 
     return <Card className={props.className}>
         <h2>Custom Playlist</h2>
-        <p>Create a custom playlist with spotify recommendation API. Feel free to play around with parameters and share
+        <p>Create a custom playlist with Spotify recommendation API. Feel free to play around with parameters and share
             your playlist with others.</p>
         <form className={styles.form}>
             <label htmlFor='name'>Name</label>
