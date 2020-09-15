@@ -1,10 +1,10 @@
 import React, {useCallback} from "react";
 import styles from './Nav.module.scss';
-import {BiStats, BiImage} from 'react-icons/bi';
+import {BiStats, BiImage, BiLogOut} from 'react-icons/bi';
 import {FaHandsHelping} from 'react-icons/fa';
 import {RiPlayListFill} from 'react-icons/ri';
 import {useDispatch, useSelector} from "react-redux";
-import {changeTab} from "../redux/actions";
+import {changeTab, logout} from "../redux/actions";
 import {cn} from "../utils";
 
 export default () => {
@@ -14,18 +14,23 @@ export default () => {
     return <nav className={styles.nav}>
         <ul className={styles.ul}>
             <li id={cn(selectedTab === 'stats' && styles.selected)}>
-                <button onClick={useCallback(() => dispatch(changeTab('stats')), [])}><BiStats/></button>
+                <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('stats')), [])}>
+                    <BiStats/></button>
             </li>
             <li id={cn(selectedTab === 'playlist' && styles.selected)}>
-                <button onClick={useCallback(() => dispatch(changeTab('playlist')), [])}><RiPlayListFill/></button>
+                <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('playlist')), [])}>
+                    <RiPlayListFill/></button>
             </li>
             <li id={cn(selectedTab === 'image' && styles.selected)}>
-                <button onClick={useCallback(() => dispatch(changeTab('image')), [])}><BiImage/></button>
+                <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('image')), [])}>
+                    <BiImage/></button>
             </li>
             <li id={cn(selectedTab === 'help' && styles.selected)}>
-                <button onClick={useCallback(() => dispatch(changeTab('help')), [])}><FaHandsHelping/></button>
+                <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('help')), [])}>
+                    <FaHandsHelping/></button>
             </li>
         </ul>
-
+        <button className={cn(styles.logout, styles.button)} onClick={useCallback(() => dispatch(logout()), [])}>
+            <BiLogOut/></button>
     </nav>
 }

@@ -142,13 +142,14 @@ const calculateTopGenres = (listArtists) => {
     return result;
 }
 
-export const changeTab = (tabName) => (
-    {
-        type: 'CHANGE_TAB',
-        payload: {
-            selectedTab: tabName
-        }
-    })
+export const changeTab = (tabName) => ({
+    type: 'CHANGE_TAB',
+    payload: {
+        selectedTab: tabName
+    }
+})
 
-
+export const logout = () => ({
+    type: 'LOGOUT'
+})
 

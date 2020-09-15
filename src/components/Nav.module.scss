@@ -7,39 +7,14 @@
   height: 100%;
   align-items: center;
   border-right: 1px solid $greyBorder;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ul {
   list-style: none;
   margin: 0;
   padding: 0;
-
-  li {
-    button {
-      background-color: transparent;
-      border: none;
-      color: $greyIcon;
-      padding: 0.5rem;
-
-      svg {
-        color: inherit;
-        width: 2rem;
-        height: 2rem;
-      }
-
-      &:focus {
-        outline: none;
-        color: $greyTextPrimary;
-      }
-
-      @media (hover: hover) {
-        &:hover {
-          cursor: pointer;
-          color: $greyTextPrimary;
-        }
-      }
-    }
-  }
 }
 
 #selected {
@@ -62,4 +37,35 @@
       cursor: initial;
     }
   }
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: $greyIcon;
+  padding: 0.5rem;
+
+  svg {
+    color: inherit;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &:focus {
+    outline: none;
+    color: $greyTextPrimary;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+      color: $greyTextPrimary;
+    }
+  }
+}
+
+.logout{
+  color: $danger;
+  position: absolute;
+  bottom: 0;
 }

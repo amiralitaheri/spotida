@@ -38,6 +38,8 @@ const dataReducer = (state = dataInitialState, action) => {
                 genres: action.payload.genres,
                 isDataLoaded: true,
             }
+        case 'LOGOUT':
+            return dataInitialState;
         default:
             return state;
     }
@@ -52,6 +54,8 @@ const tabReducer = (state = tabInitialState, action) => {
                 ...state,
                 selectedTab: action.payload.selectedTab
             }
+        case 'LOGOUT':
+            return tabInitialState;
         default:
             return state;
     }
