@@ -34,10 +34,7 @@ const photos = async (title, images, canvas) => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, width, height);
 
-    ctx.fillStyle = "#555555";
-    ctx.font = '48px serif';
-    ctx.textAlign = 'end';
-    ctx.fillText('spotify-data', width - 25, height - 25, 900);
+    addWatermark(ctx);
     ctx.font = '48px Indie Flower';
     ctx.textAlign = 'center'
     ctx.fillText(title, width / 2, 100, width);
@@ -114,10 +111,8 @@ const circle = async (images, canvas) => {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, width, height);
 
-    ctx.fillStyle = "#555555";
-    ctx.font = '48px serif';
-    ctx.textAlign = 'end';
-    ctx.fillText('spotify-data', width - 25, height - 25, 900);
+    addWatermark(ctx);
+
 
     let counter = 0;
     // loop over the layers
@@ -170,4 +165,11 @@ const circle = async (images, canvas) => {
             ctx.restore();
         }
     }
+}
+
+const addWatermark = ctx => {
+    ctx.fillStyle = "#555555";
+    ctx.font = '48px serif';
+    ctx.textAlign = 'end';
+    ctx.fillText('spotify-data', ctx.canvas.width - 25, ctx.canvas.height - 25, 900);
 }
