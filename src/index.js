@@ -21,8 +21,7 @@ import DashboardPage from "./pages/DashboardPage";
 
 const persistConfig = {
     key: 'root',
-    storage,
-    blacklist: ['tab']
+    storage
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
