@@ -1,9 +1,9 @@
 import React, {useCallback, useRef, useState} from "react";
 import styles from "./ImageTab.module.scss";
-import Card from "./Card";
-import Button from "./Button";
+import Card from "../Card";
+import Button from "../Button";
 import {useSelector} from "react-redux";
-import imagePainter from "../utils/imagePainter";
+import imagePainter from "../../utils/imagePainter";
 import {FaDownload} from 'react-icons/fa'
 
 const monthNames = ["Jan.", " Feb.", "Mar.", "Apr.", "May", "Jun.",
