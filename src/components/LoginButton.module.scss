@@ -15,7 +15,7 @@
   &:focus{
     outline: none;
     background-color: $primaryLight;
-    box-shadow: 0 5px 10px 0 $primaryLight;
+    box-shadow: 0 5px 10px 0 $shadow;
   }
   &:hover {
     background-color: $primaryLight;
