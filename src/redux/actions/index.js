@@ -132,7 +132,7 @@ const calculateTopGenres = (listArtists) => {
     const result = []
     const others = ['others', 0]
     items.forEach(item => {
-        if (item[1] > 30) {
+        if (item[1] > 10) {
             result.push(item);
         } else {
             others[1] += item[1];
