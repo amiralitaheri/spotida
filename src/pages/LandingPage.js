@@ -21,7 +21,7 @@ export default () => {
                     tools such as playlist creator.
                 </p>
                 <p>
-                    We took your privacy very seriously and won't store any of your data, but if you enjoyed using this
+                    We take your privacy very seriously and won't store any of your data, but if you enjoyed using this
                     website, consider helping the OpenSource community by sharing your data. More info is available in
                     the "Help US Tab" in the dashboard.
                 </p>

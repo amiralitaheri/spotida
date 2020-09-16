@@ -19,3 +19,5 @@ export const useTraceUpdate = (props) => {
         prev.current = props;
     });
 }
+
+export * from './data';

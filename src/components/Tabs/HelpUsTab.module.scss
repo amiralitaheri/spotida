@@ -1,0 +1,44 @@
+@import '../../styles/colors';
+
+.container {
+  padding: 2rem;
+  display: flex;
+  width: Min(700px, 100%);
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: bold;
+
+    &:after {
+      content: ':';
+    }
+  }
+
+  input, select {
+    margin: 13px 0;
+    border: 2px solid $greyBorder;
+    padding: .5rem;
+    color: $greyTextPrimary;
+    font-size: 1rem;
+
+    &:focus, &:hover {
+      border: 2px solid $greyTextSecondary;
+      outline: none;
+    }
+  }
+}
+
+.hint {
+  font-weight: lighter;
+  color: $greyTextSecondary;
+}
+
+.counter{
+  margin: 2rem auto 0;
+}
