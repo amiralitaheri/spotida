@@ -171,5 +171,5 @@ const addWatermark = ctx => {
     ctx.fillStyle = "#555555";
     ctx.font = '48px serif';
     ctx.textAlign = 'end';
-    ctx.fillText('spotify-data', ctx.canvas.width - 25, ctx.canvas.height - 25, 900);
+    ctx.fillText('spotida.xyz', ctx.canvas.width - 25, ctx.canvas.height - 25, 900);
 }

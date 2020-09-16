@@ -75,7 +75,7 @@ export default () => {
                     <p className={styles.hint}>Download to see full quality</p>
                     <div className={styles.buttonContainer}>
                         <a ref={downloadLink} className={styles.download} href='https://spotida.xyz'
-                           download="spotify-data.jpg"><FaDownload/> Download</a>
+                           download="spotida.jpg"><FaDownload/> Download</a>
                     </div>
                 </> : null}
 

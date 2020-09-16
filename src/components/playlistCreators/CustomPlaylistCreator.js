@@ -106,7 +106,7 @@ export default (props) => {
         liveness: Math.round(data.audioFeaturesAverage.liveness * 100),
         tempo: Math.round(data.audioFeaturesAverage.tempo),
         popularity: 80,
-        name: `Spotify-data custom playlist ${date}`,
+        name: `Spotida custom playlist ${date}`,
         genres: [
             "alt-rock",
             "alternative",
