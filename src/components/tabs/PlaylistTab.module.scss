@@ -4,4 +4,9 @@
   width: Min(700px, 100%);
   box-sizing: border-box;
   margin: auto;
+  flex-direction: column;
+
+  & div {
+    margin-bottom: 2rem;
+  }
 }

@@ -37,3 +37,17 @@ export const createPlaylist = async (token, userId, body) => {
     return response.json();
 }
 
+export const getArtistTopTracks = async (token, artistID) => {
+    const response = await fetch(`https://api.spotify.com/v1/artists/${artistID}/top-tracks?country=from_token`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+        },
+    });
+    if (response.status !== 200 && response.status !== 201) {
+        console.log(response);
+        throw new Error(`Received a ${response.status} from Spotify`);
+    }
+    return response.json();
+}
+

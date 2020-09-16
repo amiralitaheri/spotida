@@ -5,10 +5,8 @@ import Button from "../Button";
 import {useSelector} from "react-redux";
 import imagePainter from "../../utils/imagePainter";
 import {FaDownload} from 'react-icons/fa'
+import {MonthNames} from "../../utils";
 
-const monthNames = ["Jan.", " Feb.", "Mar.", "Apr.", "May", "Jun.",
-    "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."
-];
 const date = new Date();
 
 export default () => {
@@ -34,7 +32,7 @@ export default () => {
                 url: track.album.images[1].url
             }))
         }
-        imagePainter(`my top ${imageSource} ${monthNames[date.getMonth()]} ${date.getFullYear()}`, images, imageStyle, canvas.current).then(
+        imagePainter(`my top ${imageSource} ${MonthNames[date.getMonth()]} ${date.getFullYear()}`, images, imageStyle, canvas.current).then(
             () => {
                 setCanvasState('FULL');
                 downloadLink.current.href = canvas.current.toDataURL('image/jpg');

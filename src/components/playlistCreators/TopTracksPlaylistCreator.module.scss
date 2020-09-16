@@ -1,0 +1,27 @@
+@import '../../styles/colors';
+
+.selectContainer {
+  padding: .3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.form {
+  label {
+    padding: .3rem;
+
+    &:after {
+      content: ':';
+    }
+  }
+
+  select {
+    border-color: $greyBorder;
+
+    &:focus, &:hover {
+      border-color: $greyTextPrimary;
+      outline: none;
+    }
+  }
+}

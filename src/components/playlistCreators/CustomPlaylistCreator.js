@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import Button from "../Button";
 import GenreSelection from "../GenreSelection";
 import * as Spotify from "../../utils/spotify";
+import PlaylistResult from "../PlaylistResult";
 
 const reducer = (state, action) => {
     switch (action.name) {
@@ -120,7 +121,6 @@ export default (props) => {
         });
     }, []);
 
-    //todo: clean this mess
     const createPlaylist = useCallback(async event => {
         event.preventDefault();
         setPlaylistState({state: 'PENDING'});
@@ -144,8 +144,11 @@ export default (props) => {
                 name,
                 description: JSON.stringify(state)
             }));
-            await Spotify.addTracksToPlaylist(data.token, browse.tracks.map(track => track.uri), playlist.id);
-            setPlaylistState({state: 'SUCCESS'});
+            playlist = await Spotify.addTracksToPlaylist(data.token, browse.tracks.map(track => track.uri), playlist.id);
+            setPlaylistState({
+                state: 'SUCCESS',
+                message: playlist.external_urls.spotify
+            });
         } catch (e) {
             setPlaylistState({
                 state: 'ERROR',
@@ -154,21 +157,6 @@ export default (props) => {
         }
     }, [state, data]);
 
-    // todo: change with snackbar or something
-    let buttonText;
-    switch (playlistState.state) {
-        case 'PENDING':
-            buttonText = 'Pending...';
-            break;
-        case 'SUCCESS':
-            buttonText = 'Created!!';
-            break;
-        case 'ERROR':
-            buttonText = playlistState.message;
-            break;
-        default:
-            buttonText = 'Create';
-    }
 
     return <Card className={props.className}>
         <h2>Custom Playlist</h2>
@@ -200,7 +188,8 @@ export default (props) => {
                 onClick={createPlaylist}
                 disabled={playlistState.state === 'PENDING'}
                 style={{backgroundColor: playlistState.state === 'ERROR' ? '#f44336' : '#1db954'}}
-            >{buttonText}</Button>
+            >Create</Button>
         </form>
+        <PlaylistResult status={playlistState.state} message={playlistState.message}/>
     </Card>
 }

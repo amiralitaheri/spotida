@@ -1,0 +1,21 @@
+@import "../styles/colors";
+
+.result {
+  margin-top: 1rem;
+  border-radius: 5px;
+  color: white;
+  padding: .5rem;
+  background-color: $royalBlue;
+
+  a {
+    color: white;
+  }
+}
+
+.error {
+  background-color: $danger;
+}
+
+.success {
+  background-color: $primaryLight;
+}

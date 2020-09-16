@@ -253,3 +253,7 @@ export const Countries = [
 export const MBTITypes = ['ISTJ', 'ISTP', 'ISFJ', 'ISFP', 'INFJ', 'INFP', 'INTJ', 'INTP', 'ESTP', 'ESTJ', 'ESFP', 'ESFJ', 'ENFP', 'ENFJ', 'ENTP', 'ENTJ'];
 
 export const EducationLevels = ["No formal education", "Primary education", "Secondary education", "GED", "Vocational qualification", "Bachelor's degree", "Master's degree", "Doctorate or higher"];
+
+export const MonthNames = ["Jan.", " Feb.", "Mar.", "Apr.", "May", "Jun.",
+    "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."
+];
