@@ -42,6 +42,7 @@
     background-color: transparent;
     border: none;
     padding-right: .5em;
+    margin-right: .5rem;
     font-size: clamp(0.7em, 1.2vw, 1em);
     @media (hover: hover) {
       &:hover {

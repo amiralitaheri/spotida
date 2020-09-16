@@ -36,9 +36,10 @@
 
 .hint {
   font-weight: lighter;
-  color: $greyTextSecondary;
+  color: $danger;
 }
 
 .counter{
   margin: 2rem auto 0;
+  font-weight: bold;
 }
