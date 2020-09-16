@@ -4,11 +4,11 @@ import {Redirect} from "react-router";
 import Nav from "../components/Nav";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
-import StateTab from "../components/Tabs/StateTab";
+import StateTab from "../components/tabs/StateTab";
 import styles from './DashboardPage.module.scss';
-import PlaylistTab from "../components/Tabs/PlaylistTab";
-import ImageTab from "../components/Tabs/ImageTab";
-import HelpUsTab from "../components/Tabs/HelpUsTab";
+import PlaylistTab from "../components/tabs/PlaylistTab";
+import ImageTab from "../components/tabs/ImageTab";
+import HelpUsTab from "../components/tabs/HelpUsTab";
 
 export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);

@@ -1,11 +1,11 @@
 import React, {useCallback, useReducer, useState} from "react";
-import Card from "./Card";
+import Card from "../Card";
 import styles from './CustomPlaylistCreator.module.scss'
-import Slider from "./Slider";
+import Slider from "../Slider";
 import {useSelector} from "react-redux";
-import Button from "./Button";
-import GenreSelection from "./GenreSelection";
-import * as Spotify from "../utils/spotify";
+import Button from "../Button";
+import GenreSelection from "../GenreSelection";
+import * as Spotify from "../../utils/spotify";
 
 const reducer = (state, action) => {
     switch (action.name) {
