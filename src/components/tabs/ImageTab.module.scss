@@ -19,6 +19,7 @@
 
   select {
     border-color: $greyBorder;
+    width: 100%;
 
     &:focus, &:hover {
       border-color: $greyTextPrimary;

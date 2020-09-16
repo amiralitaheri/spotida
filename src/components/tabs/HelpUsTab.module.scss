@@ -11,6 +11,7 @@
 .form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   label {
     font-weight: bold;
@@ -40,6 +41,7 @@
 }
 
 .counter{
+  text-align: center;
   margin: 2rem auto 0;
   font-weight: bold;
 }
