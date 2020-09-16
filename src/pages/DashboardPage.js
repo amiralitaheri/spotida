@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from "react-router";
 import Nav from "../components/Nav";
 import Container from "../components/Container";
@@ -9,11 +9,18 @@ import styles from './DashboardPage.module.scss';
 import PlaylistTab from "../components/tabs/PlaylistTab";
 import ImageTab from "../components/tabs/ImageTab";
 import HelpUsTab from "../components/tabs/HelpUsTab";
+import {logout} from "../redux/actions";
 
 export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
+    const expireDate = useSelector(state => state.data.expireDate);
     const selectedTab = useSelector(state => state.tab.selectedTab);
     const main = useRef();
+
+    if (expireDate < Date.now()) {
+        useDispatch(logout());
+    }
+
     let tab = null;
     switch (selectedTab) {
         case "stats":

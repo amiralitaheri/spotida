@@ -5,15 +5,15 @@ import {Redirect} from "react-router";
 import Container from "../components/Container";
 import styles from './CallbackPage.module.scss';
 import Card from "../components/Card";
+import {parseUrl} from "../utils";
 
 export default (props) => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        let token = props.location.hash.match(/access_token=(.*?)&/g)[0];
-        token = token.substring(13, token.length - 1);
-        dispatch(login(token));
+        const urlParameters = parseUrl(props.location.hash);
+        dispatch(login(urlParameters['#access_token']));
         dispatch(getData());
     }, [dispatch, props.location.hash]);
 

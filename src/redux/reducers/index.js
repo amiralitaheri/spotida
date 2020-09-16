@@ -18,6 +18,7 @@ const dataReducer = (state = dataInitialState, action) => {
             return {
                 ...state,
                 token: action.payload.token,
+                expireDate: Date.now() + 3600000,
                 isDataLoaded: false,
             };
         case 'SAVE_DATA':

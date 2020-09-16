@@ -20,4 +20,13 @@ export const useTraceUpdate = (props) => {
     });
 }
 
+export const parseUrl = (parameters) => {
+    let result = {}
+    parameters.split('&').forEach(parameter => {
+        const sp = parameter.split('=');
+        result[sp[0]] = sp[1];
+    })
+    return result;
+}
+
 export * from './data';
