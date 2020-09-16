@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {useSelector} from 'react-redux';
 import {Redirect} from "react-router";
 import Nav from "../components/Nav";
@@ -13,6 +13,7 @@ import HelpUsTab from "../components/tabs/HelpUsTab";
 export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
     const selectedTab = useSelector(state => state.tab.selectedTab);
+    const main = useRef();
     let tab = null;
     switch (selectedTab) {
         case "stats":
@@ -30,10 +31,13 @@ export default () => {
         default:
             throw new Error('Tab not found!');
     }
+
+    if (main.current !== undefined) main.current.scrollTop = 0;
+
     return (isDataLoaded) ?
         <Container className={styles.container}>
             <Nav/>
-            <div className={styles.main}>
+            <div ref={main} className={styles.main}>
                 {tab}
                 <Footer/>
             </div>
