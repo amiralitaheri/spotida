@@ -5,6 +5,7 @@ import Slider from "./Slider";
 import {useSelector} from "react-redux";
 import Button from "./Button";
 import GenreSelection from "./GenreSelection";
+import * as Spotify from "../utils/spotify";
 
 const reducer = (state, action) => {
     switch (action.name) {
@@ -37,7 +38,7 @@ const sliderSetting = {
         min: 0,
         max: 100,
         step: 1,
-        description: 'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0 is least danceable and 100 is most danceable'
+        description: 'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0 is least danceable and 100 is most danceable.'
     },
     energy: {
         min: 0,
@@ -61,7 +62,7 @@ const sliderSetting = {
         min: 0,
         max: 100,
         step: 1,
-        description: 'Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 100, the greater likelihood the track contains no vocal content. Values above 50 are intended to represent instrumental tracks, but confidence is higher as the value approaches 100'
+        description: 'Predicts whether a track contains no vocals. “Ooh” and “aah” sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly “vocal”. The closer the instrumentalness value is to 100, the greater likelihood the track contains no vocal content. Values above 50 are intended to represent instrumental tracks, but confidence is higher as the value approaches 100.'
     },
     valence: {
         min: 0,
@@ -79,7 +80,7 @@ const sliderSetting = {
         min: 20,
         max: 500,
         step: 5,
-        description: 'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration'
+        description: 'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
     },
     popularity: {
         min: 0,
@@ -120,7 +121,7 @@ export default (props) => {
     }, []);
 
     //todo: clean this mess
-    const createPlaylist = useCallback(event => {
+    const createPlaylist = useCallback(async event => {
         event.preventDefault();
         setPlaylistState({state: 'PENDING'});
         const options = {
@@ -133,59 +134,24 @@ export default (props) => {
         const {genres, name, tempo, popularity, ...filters} = state;
         const filtersString = Object.keys(filters).map(key => `target_${key}=${filters[key] / 100}`).join('&')
         const url = `https://api.spotify.com/v1/recommendations?limit=100&seed_genres=${genres.join(',')}&target_tempo=${tempo}&target_popularity=${popularity}&${filtersString}`
-        fetch(url, options).then(
-            response => {
-                if (response.status !== 200 && response.status !== 201) {
-                    throw new Error(`Received a ${response.status} from Spotify`);
-                }
-                return response.json();
+        try {
+            const response = await fetch(url, options);
+            if (response.status !== 200 && response.status !== 201) {
+                throw new Error(`Received a ${response.status} from Spotify`);
             }
-        ).then(
-            browse => {
-                fetch(`https://api.spotify.com/v1/users/${data.me.id}/playlists`, {
-                    ...options,
-                    method: 'POST',
-                    body: JSON.stringify({
-                        name,
-                        description: JSON.stringify(state)
-                    })
-                }).then(
-                    response => {
-                        if (response.status !== 200 && response.status !== 201) {
-                            throw new Error(`Received a ${response.status} from Spotify`);
-                        }
-                        return response.json();
-                    }
-                ).then(
-                    playlist => {
-                        fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks?uris=${browse.tracks.map(track => track.uri).join(',')}`).then(
-                            response => {
-                                if (response.status !== 200 && response.status !== 201) {
-                                    throw new Error(`Received a ${response.status} from Spotify`);
-                                }
-                                setPlaylistState({state: 'SUCCESS'})
-                            }
-                        ).catch(
-                            error => setPlaylistState({
-                                state: 'ERROR',
-                                message: error.message
-                            })
-                        )
-
-                    }
-                ).catch(
-                    error => setPlaylistState({
-                        state: 'ERROR',
-                        message: error.message
-                    })
-                )
-            }
-        ).catch(
-            error => setPlaylistState({
+            const browse = await response.json();
+            let playlist = await Spotify.createPlaylist(data.token, data.me.id, JSON.stringify({
+                name,
+                description: JSON.stringify(state)
+            }));
+            await Spotify.addTracksToPlaylist(data.token, browse.tracks.map(track => track.uri), playlist.id);
+            setPlaylistState({state: 'SUCCESS'});
+        } catch (e) {
+            setPlaylistState({
                 state: 'ERROR',
-                message: error.message
+                message: e.message
             })
-        )
+        }
     }, [state, data]);
 
     // todo: change with snackbar or something
@@ -195,7 +161,7 @@ export default (props) => {
             buttonText = 'Pending...';
             break;
         case 'SUCCESS':
-            buttonText = 'Created';
+            buttonText = 'Created!!';
             break;
         case 'ERROR':
             buttonText = playlistState.message;
