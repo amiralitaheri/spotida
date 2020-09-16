@@ -39,7 +39,7 @@ export default () => {
                 })
             }
         )
-    }, []);
+    }, [data, share]);
     const age = useRef();
     const gender = useRef();
     const mbti = useRef();

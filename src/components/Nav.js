@@ -16,35 +16,40 @@ export default () => {
         <ul className={styles.ul}>
             <li id={cn(selectedTab === 'stats' && styles.selected)}>
                 <Tooltip title="Statistics" placement="right">
-                    <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('stats')), [])}>
+                    <button className={styles.button}
+                            onClick={useCallback(() => dispatch(changeTab('stats')), [dispatch])}>
                         <BiStats/>
                     </button>
                 </Tooltip>
             </li>
             <li id={cn(selectedTab === 'playlist' && styles.selected)}>
                 <Tooltip title="Playlist Creator" placement="right">
-                    <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('playlist')), [])}>
+                    <button className={styles.button}
+                            onClick={useCallback(() => dispatch(changeTab('playlist')), [dispatch])}>
                         <RiPlayListFill/>
                     </button>
                 </Tooltip>
             </li>
             <li id={cn(selectedTab === 'image' && styles.selected)}>
                 <Tooltip title="Image Creator" placement="right">
-                    <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('image')), [])}>
+                    <button className={styles.button}
+                            onClick={useCallback(() => dispatch(changeTab('image')), [dispatch])}>
                         <BiImage/>
                     </button>
                 </Tooltip>
             </li>
             <li id={cn(selectedTab === 'help' && styles.selected)}>
                 <Tooltip title="Help Us" placement="right">
-                    <button className={styles.button} onClick={useCallback(() => dispatch(changeTab('help')), [])}>
+                    <button className={styles.button}
+                            onClick={useCallback(() => dispatch(changeTab('help')), [dispatch])}>
                         <FaHandsHelping/>
                     </button>
                 </Tooltip>
             </li>
         </ul>
         <Tooltip title="Logout" placement="right">
-            <button className={cn(styles.logout, styles.button)} onClick={useCallback(() => dispatch(logout()), [])}>
+            <button className={cn(styles.logout, styles.button)}
+                    onClick={useCallback(() => dispatch(logout()), [dispatch])}>
                 <BiLogOut/>
             </button>
         </Tooltip>

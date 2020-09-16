@@ -28,7 +28,7 @@ export default (props) => {
                 <span className={styles.bounce2}/>
                 <span/>
             </div>
-            <h5 className={styles.text}>Stealing your data <span role='img'>😎</span></h5>
+            <h5 className={styles.text}>Stealing your data <span aria-label='cool guy' role='img'>😎</span></h5>
         </Card>
     </Container>
 }
