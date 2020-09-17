@@ -16,9 +16,10 @@ export default () => {
     const expireDate = useSelector(state => state.data.expireDate);
     const selectedTab = useSelector(state => state.tab.selectedTab);
     const main = useRef();
+    const dispatch = useDispatch();
 
     if (expireDate < Date.now()) {
-        useDispatch(logout());
+        dispatch(logout());
     }
 
     let tab = null;
