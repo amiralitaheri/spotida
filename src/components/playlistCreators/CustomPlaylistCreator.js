@@ -187,7 +187,6 @@ export default (props) => {
             <Button
                 onClick={createPlaylist}
                 disabled={playlistState.state === 'PENDING'}
-                style={{backgroundColor: playlistState.state === 'ERROR' ? '#f44336' : '#1db954'}}
             >Create</Button>
         </form>
         <PlaylistResult status={playlistState.state} message={playlistState.message}/>
