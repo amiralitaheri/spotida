@@ -27,12 +27,13 @@ export default () => {
 
     const options = {
         legend: {
+            position: 'right',
             labels: {
                 boxWidth: 12,
                 fontColor: '#A4A4A4'
             }
         },
-        maintainAspectRatio:false
+        maintainAspectRatio: false
     }
     return <Doughnut data={data} options={options}/>
 }
