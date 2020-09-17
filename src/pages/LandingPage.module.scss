@@ -4,6 +4,7 @@
   margin: auto;
   box-sizing: border-box;
   padding: Min(2rem, 5vw);
+  background-color: $background;
 }
 
 .card {
@@ -13,4 +14,8 @@
 .container{
   width: 100vw;
   height: 100vh;
+}
+
+.logo{
+  font-size: 2rem;
 }
