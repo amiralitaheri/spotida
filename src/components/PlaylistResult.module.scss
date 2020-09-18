@@ -6,6 +6,10 @@
   color: white;
   padding: .5rem;
   background-color: $royalBlue;
+  //width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   a {
     color: white;

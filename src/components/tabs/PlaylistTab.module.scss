@@ -6,7 +6,7 @@
   margin: auto;
   flex-direction: column;
 
-  & div {
+  & > div {
     margin-bottom: 2rem;
   }
 }
