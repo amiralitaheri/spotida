@@ -9,7 +9,8 @@ import {Redirect} from "react-router";
 
 export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
-    if (isDataLoaded === true) {
+    const isExpired = useSelector(state => state.data.expireDate < Date.now());
+    if (isDataLoaded === true && !isExpired) {
         return <Redirect to="/dashboard"/>
     }
     return <Container className={styles.container}>
