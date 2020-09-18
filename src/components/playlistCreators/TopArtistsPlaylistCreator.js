@@ -28,8 +28,8 @@ export default (props) => {
                 }
             }
             let playlist = await Spotify.createPlaylist(data.token, data.me.id, JSON.stringify({
-                name: `Top Artist Playlist ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
-                description: `Top Artist Playlist ${MonthNames[date.getMonth()]} ${date.getFullYear()}\nTime range: ${timeRange.current.value}\nCreated by Spotida`
+                name: `Top Artist ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
+                description: `Top Artist ${MonthNames[date.getMonth()]} ${date.getFullYear()}, Time range: ${timeRange.current.value}, Created by Spotida`
             }));
             await Spotify.addTracksToPlaylist(data.token, tracksUri, playlist.id);
             setPlaylistState({

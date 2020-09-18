@@ -18,8 +18,8 @@ export default (props) => {
         setPlaylistState({state: 'PENDING'});
         try {
             let playlist = await Spotify.createPlaylist(data.token, data.me.id, JSON.stringify({
-                name: `Top tracks ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
-                description: `Top tracks ${MonthNames[date.getMonth()]} ${date.getFullYear()}\nTime range: ${timeRange.current.value}\nCreated by Spotida`
+                name: `Top Tracks ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
+                description: `Top Tracks ${MonthNames[date.getMonth()]} ${date.getFullYear()}, Time range: ${timeRange.current.value}, Created by Spotida`
             }));
             await Spotify.addTracksToPlaylist(data.token, data['tracks' + timeRange.current.value].items.map(track => track.uri), playlist.id);
             setPlaylistState({
