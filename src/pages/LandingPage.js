@@ -16,7 +16,7 @@ export default () => {
     return <Container className={styles.container}>
         <main className={styles.main}>
             <Card className={styles.card}>
-                <div className={styles.logo}><h1>Spotida</h1></div>
+                <div className={styles.logo}><h1><span>S</span>poti<span>da</span></h1></div>
                 <p>As recently I have noticed that Spotify.me no longer works <span aria-label='sad'
                                                                                     role='img'>😭</span>.
                     I needed a place to see my Spotify statistics. So I have created this website and added some other
