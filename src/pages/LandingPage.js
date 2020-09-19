@@ -4,14 +4,18 @@ import styles from './LandingPage.module.scss';
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import Container from "../components/Container";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router";
+import {logout} from "../redux/actions";
 
 export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
     const isExpired = useSelector(state => state.data.expireDate < Date.now());
+    const dispatch = useDispatch();
     if (isDataLoaded === true && !isExpired) {
         return <Redirect to="/dashboard"/>
+    } else if (isDataLoaded === true && isExpired) {
+        dispatch(logout());
     }
     return <Container className={styles.container}>
         <main className={styles.main}>
