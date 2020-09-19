@@ -50,6 +50,8 @@ const tabInitialState = {
 }
 const tabReducer = (state = tabInitialState, action) => {
     switch (action.type) {
+        case 'LOGIN':
+            return tabInitialState;
         case 'CHANGE_TAB':
             return {
                 ...state,
