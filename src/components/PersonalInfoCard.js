@@ -46,7 +46,7 @@ export default (props) => {
     let personalmessage = getPersonalmessage(data.topGenres[0][0], data.audioFeaturesAverage);
 
     return <Card className={cn(props.className, styles.card)}>
-        <img src={data.me.images[0].url} alt='profile'/>
+        <img src={(data.me.images[0] && data.me.images[0].url) || 'profile-default.jpg'} alt='profile'/>
         <h2>{data.me.display_name}</h2>
         <hr/>
         <p className={styles.personalmessage}>{personalmessage}</p>
