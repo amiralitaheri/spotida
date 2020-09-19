@@ -17,6 +17,8 @@ export default () => {
 
     const createImage = useCallback(event => {
         event.preventDefault();
+        if (canvasState === 'PENDING') return;
+        setCanvasState('PENDING');
         const imageSource = document.getElementById('ImageSource').value;
         const timeRange = document.getElementById('timeRange').value;
         const imageStyle = document.getElementById('imageStyle').value;
@@ -38,7 +40,7 @@ export default () => {
                 downloadLink.current.href = canvas.current.toDataURL('image/jpg');
             }
         );
-    }, [data])
+    }, [canvasState, data])
     return <div className={styles.container}>
         <Card>
             <h1>Create an image</h1>
