@@ -41,7 +41,7 @@ export const getData = () => (dispatch, getState) => {
             fetch(`https://api.spotify.com/v1/audio-features/?ids=${trackIds.slice(0, 70).join(',')}`, options).then(response => response.json()),
             fetch(`https://api.spotify.com/v1/audio-features/?ids=${trackIds.slice(71, trackIds.length).join(',')}`, options).then(response => response.json()),
         ]).then(response => {
-            const audioFeatures = response[0].audio_features.concat(response[1].audio_features);
+            const audioFeatures = (response[1].audio_features[0] === null) ? response[0].audio_features : response[0].audio_features.concat(response[1].audio_features);
             const audioFeaturesAverage = getAverageFromAudioFeatures(audioFeatures);
             dispatch(saveDate({
                 me,
@@ -59,14 +59,21 @@ export const getData = () => (dispatch, getState) => {
                 leastPopularArtist,
                 genres
             }));
-        }).catch((err) => {
-            console.log(err);
+        }).catch(err => {
+            dispatch(error(`While getting audio features:\n${err}`));
         });
 
-    }).catch((err) => {
-        console.log(err);
+    }).catch(err => {
+        dispatch(error(`While getting music data:\n${err}`));
     });
 }
+
+export const error = (err) => ({
+    type: 'ERROR',
+    payload: {
+        message: err
+    }
+})
 
 export const changeTab = (tabName) => ({
     type: 'CHANGE_TAB',

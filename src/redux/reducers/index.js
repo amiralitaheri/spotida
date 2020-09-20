@@ -14,9 +14,16 @@ const dataInitialState = {
 
 const dataReducer = (state = dataInitialState, action) => {
     switch (action.type) {
+        case 'ERROR':
+            return {
+                ...state,
+                dataLoadError: true,
+                dataLoadErrorMessage: action.payload.message
+            }
         case 'LOGIN':
             return {
                 ...state,
+                dataLoadError: false,
                 token: action.payload.token,
                 expireDate: Date.now() + 3600000,
                 isDataLoaded: false,

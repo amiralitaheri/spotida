@@ -9,6 +9,8 @@ import {parseUrl} from "../utils";
 
 export default (props) => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
+    const dataLoadError = useSelector(state => state.data.dataLoadError);
+    const dataLoadErrorMessage = useSelector(state => state.data.dataLoadErrorMessage);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,6 +21,16 @@ export default (props) => {
 
     if (isDataLoaded === true) {
         return <Redirect to="/dashboard"/>
+    }
+
+    if (dataLoadError) {
+        return <Container className={styles.container}>
+            <Card className={styles.card}>
+                <span role='img' aria-label='sad and sorry'>😓</span>
+                <h5 className={styles.text}>Sorry an error happened while we were trying to load your data, We will look into it.</h5>
+                <code className={styles.error}>{dataLoadErrorMessage}</code>
+            </Card>
+        </Container>
     }
 
     return <Container className={styles.container}>

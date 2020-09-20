@@ -57,9 +57,15 @@
 
 .text {
   color: $greyTextPrimary;
+  text-align: center;
 }
 
 .card {
   width: Min(700px, 80vw);
   height: fit-content;
+}
+
+.error{
+  color: $danger;
+  white-space: pre-line;
 }
