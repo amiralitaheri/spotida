@@ -43,7 +43,7 @@ const getPersonalmessage = (topGenre, audioFeaturesAverage) => {
 
 export default (props) => {
     const data = useSelector(state => state.data);
-    let personalmessage = getPersonalmessage(data.topGenres[0][0], data.audioFeaturesAverage);
+    let personalmessage = getPersonalmessage(data.topGenres[0][0] === 'others' ? data.topGenres[1][0] : data.topGenres[0][0], data.audioFeaturesAverage);
 
     return <Card className={cn(props.className, styles.card)}>
         <img src={(data.me.images[0] && data.me.images[0].url) || 'profile-default.jpg'} alt='profile'/>
