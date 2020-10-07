@@ -17,6 +17,7 @@ import storage from 'redux-persist/lib/storage'
 import LandingPage from './pages/LandingPage'
 import CallbackPage from "./pages/CallbackPage";
 import DashboardPage from "./pages/DashboardPage";
+import {ErrorBoundary} from "./components/ErrorBoundary";
 
 
 const persistConfig = {
@@ -34,17 +35,19 @@ const persistor = persistStore(store);
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <Router>
-                    <Switch>
-                        <Route path='/' exact component={LandingPage}/>
-                        <Route path='/callback' component={CallbackPage}/>
-                        <Route path='/dashboard' component={DashboardPage}/>
-                    </Switch>
-                </Router>
-            </PersistGate>
-        </Provider>
+        <ErrorBoundary>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <Router>
+                        <Switch>
+                            <Route path='/' exact component={LandingPage}/>
+                            <Route path='/callback' component={CallbackPage}/>
+                            <Route path='/dashboard' component={DashboardPage}/>
+                        </Switch>
+                    </Router>
+                </PersistGate>
+            </Provider>
+        </ErrorBoundary>
     </React.StrictMode>,
     document.getElementById('root')
 );
