@@ -42,7 +42,8 @@ export default (props) => {
 
     if (dataLoadError) {
         return <Container className={styles.container}>
-            <ErrorCard errorMessage={dataLoadErrorMessage}/>
+            <ErrorCard message='Sorry an error happened while we were trying to load your data, We will look into it.'
+                       errorMessage={dataLoadErrorMessage}/>
         </Container>
     }
 
