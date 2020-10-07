@@ -6,6 +6,7 @@ import Container from "../components/Container";
 import styles from './CallbackPage.module.scss';
 import Card from "../components/Card";
 import {parseUrl} from "../utils";
+import ErrorCard from "../components/ErrorCard";
 
 export default (props) => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
@@ -25,11 +26,7 @@ export default (props) => {
 
     if (dataLoadError) {
         return <Container className={styles.container}>
-            <Card className={styles.card}>
-                <span role='img' aria-label='sad and sorry'>😓</span>
-                <h5 className={styles.text}>Sorry an error happened while we were trying to load your data, We will look into it.</h5>
-                <code className={styles.error}>{dataLoadErrorMessage}</code>
-            </Card>
+            <ErrorCard errorMessage={dataLoadErrorMessage}/>
         </Container>
     }
 
