@@ -12,10 +12,14 @@ export class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, errorInfo) {
-        window.ga('send', 'exception', {
-            'exDescription': `${error.toString()}\n${errorInfo.componentStack}`,
-            'exFatal': true
-        });
+        try {
+            window.gtag('event', 'exception', {
+                'description': `${error.toString()}\n${errorInfo.componentStack}`,
+                'fatal': true
+            });
+        } catch (e) {
+            console.log('Failed to send event to google analytics');
+        }
     }
 
     render() {
