@@ -2,12 +2,13 @@
 
 .selectContainer {
   padding: .3rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .form {
+  width: 100%;
   label {
     padding: .3rem;
 
@@ -16,9 +17,9 @@
     }
   }
 
-  select {
-    border-color: $greyBorder;
-
+  select, input {
+    border: 1px solid $greyBorder;
+    padding: .3rem;
     &:focus, &:hover {
       border-color: $greyTextPrimary;
       outline: none;
