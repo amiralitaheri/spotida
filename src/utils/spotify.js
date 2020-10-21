@@ -1,4 +1,4 @@
-export const clientId = '75f5d4538fc14160802eaf7183a4d74e';
+export const clientId = 'ada67d50e3b84a28b5c7f65eb8bf1eae';
 export const scopes = ['user-top-read', 'playlist-modify-public'/*, 'ugc-image-upload'*/].join(' ');
 
 export const addTracksToPlaylist = async (token, uris, playlistId) => {
