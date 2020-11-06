@@ -1,7 +1,6 @@
 import React, {useCallback} from "react";
 import styles from './Nav.module.scss';
 import {BiStats, BiImage, BiLogOut} from 'react-icons/bi';
-import {FaHandsHelping} from 'react-icons/fa';
 import {RiPlayListFill} from 'react-icons/ri';
 import {useDispatch, useSelector} from "react-redux";
 import {changeTab, logout} from "../redux/actions";
@@ -35,14 +34,6 @@ export default () => {
                     <button className={styles.button}
                             onClick={useCallback(() => dispatch(changeTab('image')), [dispatch])}>
                         <BiImage/>
-                    </button>
-                </Tooltip>
-            </li>
-            <li id={cn(selectedTab === 'help' && styles.selected)}>
-                <Tooltip title="Help Us" placement="right">
-                    <button className={styles.button}
-                            onClick={useCallback(() => dispatch(changeTab('help')), [dispatch])}>
-                        <FaHandsHelping/>
                     </button>
                 </Tooltip>
             </li>

@@ -8,7 +8,6 @@ import StateTab from "../components/tabs/StateTab";
 import styles from './DashboardPage.module.scss';
 import PlaylistTab from "../components/tabs/PlaylistTab";
 import ImageTab from "../components/tabs/ImageTab";
-import HelpUsTab from "../components/tabs/HelpUsTab";
 import {logout} from "../redux/actions";
 
 export default () => {
@@ -32,9 +31,6 @@ export default () => {
             break;
         case 'image':
             tab = <ImageTab/>
-            break;
-        case 'help':
-            tab = <HelpUsTab/>
             break;
         default:
             throw new Error('Tab not found!');
