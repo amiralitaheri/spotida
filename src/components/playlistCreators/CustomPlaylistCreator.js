@@ -30,6 +30,8 @@ const reducer = (state, action) => {
             return {...state, name: action.value}
         case 'genres':
             return {...state, genres: action.value}
+        case 'popularity':
+            return {...state, popularity: action.value}
         default:
             throw new Error();
     }
@@ -144,7 +146,7 @@ export default (props) => {
                 name,
                 description: JSON.stringify(state)
             }));
-            playlist = await Spotify.addTracksToPlaylist(data.token, browse.tracks.map(track => track.uri), playlist.id);
+            await Spotify.addTracksToPlaylist(data.token, browse.tracks.map(track => track.uri), playlist.id);
             setPlaylistState({
                 state: 'SUCCESS',
                 message: playlist.external_urls.spotify
