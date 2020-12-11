@@ -10,7 +10,7 @@ export default React.memo((props) => {
 
     const add = event => {
         event.preventDefault();
-        if (genres.includes(textField.current.value) && props.value.length < 6) {
+        if (genres.includes(textField.current.value) && props.value.length < 5 && !props.value.includes(textField.current.value)) {
             props.onChange([...props.value, textField.current.value]);
             textField.current.value = ''
         }
