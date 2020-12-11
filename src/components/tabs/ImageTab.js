@@ -26,12 +26,12 @@ export default () => {
         if (imageSource === 'artists') {
             images = data[imageSource + timeRange].items.map(artist => ({
                 name: artist.name,
-                url: artist.images[1].url
+                url: artist.images[1]?.url
             }))
         } else {
             images = data[imageSource + timeRange].items.map(track => ({
                 name: track.name,
-                url: track.album.images[1].url
+                url: track.album.images[1]?.url
             }))
         }
         imagePainter(`my top ${imageSource} ${MonthNames[date.getMonth()]} ${date.getFullYear()}`, images, imageStyle, canvas.current).then(
