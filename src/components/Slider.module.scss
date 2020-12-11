@@ -4,6 +4,15 @@
   text-transform: capitalize;
   font-weight: bold;
   margin-top: 2rem;
+  display: flex;
+}
+
+.infoIcon {
+  margin-left: 0.5em;
+
+  &:hover {
+    cursor: help;
+  }
 }
 
 .description {

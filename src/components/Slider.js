@@ -2,6 +2,8 @@ import React from "react";
 import {withStyles} from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import styles from "./Slider.module.scss";
+import Tooltip from "@material-ui/core/Tooltip";
+import {BiInfoCircle} from 'react-icons/bi';
 
 //todo: remove material dependency (create your own slider)
 const CustomSlider = withStyles({
@@ -36,8 +38,12 @@ const CustomSlider = withStyles({
 
 export default React.memo((props) => {
     return <>
-        <label id={props.name} className={styles.label}>{props.name}</label>
-        <p className={styles.description}>{props.description}</p>
+        <label id={props.name} className={styles.label}>
+            {props.name}
+            <Tooltip title={props.description} placement='right'>
+                <div className={styles.infoIcon}><BiInfoCircle/></div>
+            </Tooltip>
+        </label>
         <CustomSlider
             {...props}
         />
