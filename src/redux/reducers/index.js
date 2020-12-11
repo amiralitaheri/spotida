@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import {ActionTypes} from '../actions';
 
 const dataInitialState = {
     token: null,
@@ -14,13 +15,13 @@ const dataInitialState = {
 
 const dataReducer = (state = dataInitialState, action) => {
     switch (action.type) {
-        case 'ERROR':
+        case ActionTypes.ERROR:
             return {
                 ...state,
                 dataLoadError: true,
                 dataLoadErrorMessage: action.payload.message
             }
-        case 'LOGIN':
+        case ActionTypes.LOGIN:
             return {
                 ...state,
                 dataLoadError: false,
@@ -28,7 +29,7 @@ const dataReducer = (state = dataInitialState, action) => {
                 expireDate: Date.now() + 3600000,
                 isDataLoaded: false,
             };
-        case 'SAVE_DATA':
+        case ActionTypes.SAVE_DATA:
             return {
                 ...state,
                 me: action.payload.me,
@@ -46,7 +47,7 @@ const dataReducer = (state = dataInitialState, action) => {
                 genres: action.payload.genres,
                 isDataLoaded: true,
             }
-        case 'LOGOUT':
+        case ActionTypes.LOGOUT:
             return dataInitialState;
         default:
             return state;
@@ -57,14 +58,14 @@ const tabInitialState = {
 }
 const tabReducer = (state = tabInitialState, action) => {
     switch (action.type) {
-        case 'LOGIN':
+        case ActionTypes.LOGIN:
             return tabInitialState;
-        case 'CHANGE_TAB':
+        case ActionTypes.CHANGE_TAB:
             return {
                 ...state,
                 selectedTab: action.payload.selectedTab
             }
-        case 'LOGOUT':
+        case ActionTypes.LOGOUT:
             return tabInitialState;
         default:
             return state;

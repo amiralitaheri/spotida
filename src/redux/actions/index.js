@@ -1,14 +1,15 @@
 import {calculateTopGenres, getAverageFromAudioFeatures, getLeastPopular, getTrackIds} from "../../utils";
+import * as ActionTypes from './actionTypes';
 
 export const login = (token) => ({
-    type: 'LOGIN',
+    type: ActionTypes.LOGIN,
     payload: {
         token
     }
 })
 
 export const saveDate = (data) => ({
-    type: 'SAVE_DATA',
+    type: ActionTypes.SAVE_DATA,
     payload: data
 })
 
@@ -69,20 +70,21 @@ export const getData = () => (dispatch, getState) => {
 }
 
 export const error = (err) => ({
-    type: 'ERROR',
+    type: ActionTypes.ERROR,
     payload: {
         message: err
     }
 })
 
 export const changeTab = (tabName) => ({
-    type: 'CHANGE_TAB',
+    type: ActionTypes.CHANGE_TAB,
     payload: {
         selectedTab: tabName
     }
 })
 
 export const logout = () => ({
-    type: 'LOGOUT'
+    type: ActionTypes.LOGOUT
 })
 
+export {ActionTypes};
