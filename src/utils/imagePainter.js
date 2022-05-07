@@ -10,15 +10,17 @@ export default async (title, images, styles, canvas) => {
 
 const toRad = (x) => x * (Math.PI / 180);
 
+const SCALE = 1.5;
+
 const photos = async (title, images, canvas) => {
-    await document.fonts.load('48px Indie Flower');
+    await document.fonts.load('bold 48px Indie Flower');
     images = images.slice(0, 20);
-    const photoWidth = 200;
-    const photoHeight = 300;
-    const paddingWidth = 200;
-    const paddingHeight = 200;
-    const gap = 10;
-    const indent = 10;
+    const photoWidth = 200 * SCALE;
+    const photoHeight = 300 * SCALE;
+    const paddingWidth = 200 * SCALE;
+    const paddingHeight = 200 * SCALE;
+    const gap = 10 * SCALE;
+    const indent = 10 * SCALE;
 
     const gridSize = Math.ceil(Math.sqrt(images.length));
     const width = gridSize * photoWidth + 2 * paddingWidth;
@@ -35,7 +37,7 @@ const photos = async (title, images, canvas) => {
     ctx.fillRect(0, 0, width, height);
 
     addWatermark(ctx);
-    ctx.font = '48px Indie Flower';
+    ctx.font = 'bold 48px Indie Flower';
     ctx.textAlign = 'center'
     ctx.fillText(title, width / 2, 100, width);
     ctx.textAlign = 'start'
@@ -73,7 +75,7 @@ const photos = async (title, images, canvas) => {
             );
 
             ctx.fillStyle = "#555555";
-            ctx.font = '42px Indie Flower';
+            ctx.font = 'bold 42px Indie Flower';
             // ctx.textAlign = 'center'
             ctx.fillText(`#${counter + 1} ${images[counter++].name}`, x + indent, y + indent + photoHeight * 4 / 5, photoWidth - 2 * indent);
             ctx.restore();
