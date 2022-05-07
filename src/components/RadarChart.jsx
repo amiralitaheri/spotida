@@ -1,6 +1,22 @@
 import React from "react";
-import {Radar} from 'react-chartjs-2';
 import {useSelector} from "react-redux";
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+} from 'chart.js';
+import {Radar} from 'react-chartjs-2';
+
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip
+);
 
 export default () => {
     const values = useSelector(state => state.data.audioFeaturesAverage);
@@ -14,8 +30,10 @@ export default () => {
 
     }
     const options = {
-        legend: {
-            display: false
+        plugins: {
+            legend: {
+                display: false
+            }
         },
         scale: {
             ticks: {
