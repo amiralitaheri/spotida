@@ -1,24 +1,28 @@
-export default async (title, images, styles, canvas) => {
-    switch (styles) {
+export default async ({canvas, type, images, options}) => {
+    switch (type) {
         case 'photo':
-            await photos(title, images, canvas);
+            await photos(images, canvas, options);
             break;
         default:
-            await circle(images, canvas);
+            await circle(images, canvas, options);
     }
 }
 
 const toRad = (x) => x * (Math.PI / 180);
 
-const photos = async (title, images, canvas) => {
-    await document.fonts.load('48px Indie Flower');
+const SCALE = 1.5;
+
+const photos = async (images, canvas, options = {}) => {
+    const {scale = SCALE, font = 'bold 48px Indie Flower', backgroundColor = "#FFFFFF", title = ""} = options;
+    await document.fonts.load(font);
+
     images = images.slice(0, 20);
-    const photoWidth = 200;
-    const photoHeight = 300;
-    const paddingWidth = 200;
-    const paddingHeight = 200;
-    const gap = 10;
-    const indent = 10;
+    const photoWidth = 200 * scale;
+    const photoHeight = 300 * scale;
+    const paddingWidth = 200 * scale;
+    const paddingHeight = 200 * scale;
+    const gap = 10 * scale;
+    const indent = 10 * scale;
 
     const gridSize = Math.ceil(Math.sqrt(images.length));
     const width = gridSize * photoWidth + 2 * paddingWidth;
@@ -31,11 +35,11 @@ const photos = async (title, images, canvas) => {
     const ctx = canvas.getContext("2d");
 
     // fill the background
-    ctx.fillStyle = "#FFFFFF";
+    ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
 
     addWatermark(ctx);
-    ctx.font = '48px Indie Flower';
+    ctx.font = font;
     ctx.textAlign = 'center'
     ctx.fillText(title, width / 2, 100, width);
     ctx.textAlign = 'start'
@@ -43,7 +47,6 @@ const photos = async (title, images, canvas) => {
     let counter = 0;
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
-            // if we are trying to render a circle but we ran out of users, just exit the loop. We are done.
             if (counter === images.length) break;
             ctx.save();
             const x = j * (photoWidth + gap) + paddingWidth;
@@ -73,7 +76,7 @@ const photos = async (title, images, canvas) => {
             );
 
             ctx.fillStyle = "#555555";
-            ctx.font = '42px Indie Flower';
+            ctx.font = font;
             // ctx.textAlign = 'center'
             ctx.fillText(`#${counter + 1} ${images[counter++].name}`, x + indent, y + indent + photoHeight * 4 / 5, photoWidth - 2 * indent);
             ctx.restore();
@@ -83,7 +86,9 @@ const photos = async (title, images, canvas) => {
 
 }
 
-const circle = async (images, canvas) => {
+const circle = async (images, canvas, options = {}) => {
+    const {backgroundColor = "#FFFFFF"} = options
+
     const circlesRadius = 100;
     const imageRadius = 50;
     const padding = 100;
@@ -108,7 +113,7 @@ const circle = async (images, canvas) => {
     const ctx = canvas.getContext("2d");
 
     // fill the background
-    ctx.fillStyle = "#FFFFFF";
+    ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
 
     addWatermark(ctx);

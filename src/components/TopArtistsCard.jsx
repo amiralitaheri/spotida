@@ -29,9 +29,9 @@ export default (props) => {
             </button>
         </div>
         <ol>
-            {artists[timeRange].map(artist =>
+            {artists[timeRange].map((artist, index) =>
                 <li key={artist.id}>
-                    <ArtistCard artist={artist}/>
+                    <ArtistCard artist={artist} index={index}/>
                     <hr/>
                 </li>)}
         </ol>

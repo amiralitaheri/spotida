@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {Redirect} from "react-router";
+import {Navigate} from "react-router";
 import Nav from "../components/Nav";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
@@ -45,5 +45,5 @@ export default () => {
                 {tab}
                 <Footer/>
             </div>
-        </Container> : <Redirect to='/'/>
+        </Container> : <Navigate replace to='/'/>
 }

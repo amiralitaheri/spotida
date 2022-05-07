@@ -1,6 +1,9 @@
 import React from "react";
-import {Doughnut} from 'react-chartjs-2';
 import {useSelector} from "react-redux";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default () => {
     const topGenres = useSelector(state => state.data.topGenres)
@@ -26,11 +29,13 @@ export default () => {
     };
 
     const options = {
-        legend: {
-            position: 'right',
-            labels: {
-                boxWidth: 12,
-                fontColor: '#A4A4A4'
+        plugins:{
+            legend: {
+                position: 'right',
+                labels: {
+                    boxWidth: 12,
+                    fontColor: '#A4A4A4'
+                }
             }
         },
         maintainAspectRatio: false

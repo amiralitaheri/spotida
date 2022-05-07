@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.scss';
-import * as serviceWorker from './serviceWorker';
+import {BrowserRouter as Router} from "react-router-dom";
 import {
-    BrowserRouter as Router,
-    Switch,
+    Routes,
     Route
-} from "react-router-dom";
+} from "react-router";
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
@@ -32,27 +31,22 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
 const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(ReduxThunk)));
 const persistor = persistStore(store);
 
-
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <ErrorBoundary>
-            <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
-                    <Router>
-                        <Switch>
-                            <Route path='/' exact component={LandingPage}/>
-                            <Route path='/callback' component={CallbackPage}/>
-                            <Route path='/dashboard' component={DashboardPage}/>
-                        </Switch>
-                    </Router>
-                </PersistGate>
-            </Provider>
-        </ErrorBoundary>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+        <React.StrictMode>
+            <ErrorBoundary>
+                <Provider store={store}>
+                    <PersistGate loading={null} persistor={persistor}>
+                        <Router>
+                            <Routes>
+                                <Route path='/' exact element={<LandingPage/>}/>
+                                <Route path='/callback' element={<CallbackPage/>}/>
+                                <Route path='/dashboard' element={<DashboardPage/>}/>
+                            </Routes>
+                        </Router>
+                    </PersistGate>
+                </Provider>
+            </ErrorBoundary>
+        </React.StrictMode>
+    </React.StrictMode>
+)

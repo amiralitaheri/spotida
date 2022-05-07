@@ -4,6 +4,7 @@
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
+  position: relative;
 
   img {
     width: clamp(5rem,10vw,8rem);
@@ -13,5 +14,12 @@
   h5 {
     padding-left: 1rem;
     font-size: initial;
+  }
+
+  .index{
+    position: absolute;
+    top:1rem;
+    right:1rem;
+    font-weight: bold;
   }
 }
