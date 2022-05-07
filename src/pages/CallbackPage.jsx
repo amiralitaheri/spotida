@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {login, getData} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {Redirect} from "react-router";
+import {Navigate} from "react-router";
 import Container from "../components/Container";
 import styles from './CallbackPage.module.scss';
 import Card from "../components/Card";
@@ -28,7 +28,7 @@ export default (props) => {
     }, [dispatch, props.location]);
 
     if (isDataLoaded === true) {
-        return <Redirect to="/dashboard"/>
+        return <Navigate replace to="/dashboard"/>
     }
 
     if (accessDeniedError) {
