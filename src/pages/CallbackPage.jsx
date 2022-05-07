@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {login, getData} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {Navigate} from "react-router";
+import {Navigate, useLocation} from "react-router";
 import Container from "../components/Container";
 import styles from './CallbackPage.module.scss';
 import Card from "../components/Card";
@@ -9,23 +9,24 @@ import {parseUrl} from "../utils";
 import LoginButton from "../components/LoginButton";
 import ErrorPage from "./ErrorPage";
 
-export default (props) => {
+export default () => {
     const isDataLoaded = useSelector(state => state.data.isDataLoaded);
     const dataLoadError = useSelector(state => state.data.dataLoadError);
     const dataLoadErrorMessage = useSelector(state => state.data.dataLoadErrorMessage);
     const dispatch = useDispatch();
     const [accessDeniedError, setAccessDeniedError] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
-        const urlHashParameters = parseUrl(props.location.hash);
-        const urlQueryParameters = parseUrl(props.location.search);
+        const urlHashParameters = parseUrl(location.hash);
+        const urlQueryParameters = parseUrl(location.search);
         if (urlQueryParameters['?error'] === 'access_denied') {
             setAccessDeniedError(true);
         } else {
             dispatch(login(urlHashParameters['#access_token']));
             dispatch(getData());
         }
-    }, [dispatch, props.location]);
+    }, [dispatch, location]);
 
     if (isDataLoaded === true) {
         return <Navigate replace to="/dashboard"/>
