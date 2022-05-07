@@ -7,10 +7,18 @@
   padding: 1rem;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
 
   img {
     width: clamp(5rem, 10vw, 8rem);
     border-radius: 5px;
+  }
+
+  .index{
+    position: absolute;
+    top:1rem;
+    right:1rem;
+    font-weight: bold;
   }
 }
 

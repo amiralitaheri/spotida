@@ -29,9 +29,9 @@ export default (props) => {
             </button>
         </div>
         <ol>
-            {tracks[timeRange].map(track =>
+            {tracks[timeRange].map((track,index) =>
                 <li key={track.id}>
-                    <TrackCard track={track}/>
+                    <TrackCard track={track} index={index}/>
                     <hr/>
                 </li>)}
         </ol>
