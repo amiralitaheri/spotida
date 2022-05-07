@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import styles from "./ImageTab.module.scss";
 import Card from "../Card";
 import Button from "../Button";
@@ -14,14 +14,16 @@ export default () => {
     const downloadLink = useRef();
     const data = useSelector(state => state.data);
     const [canvasState, setCanvasState] = useState('EMPTY');
+    const [backgroundColor, setBackgroundColor] = useState('#FFFFFF');
 
-    const createImage = useCallback(event => {
+    const createImage = event => {
         event.preventDefault();
         if (canvasState === 'PENDING') return;
         setCanvasState('PENDING');
         const imageSource = document.getElementById('ImageSource').value;
         const timeRange = document.getElementById('timeRange').value;
         const imageStyle = document.getElementById('imageStyle').value;
+        const font = document.getElementById('font').value;
         let images;
         if (imageSource === 'artists') {
             images = data[imageSource + timeRange].items.map(artist => ({
@@ -34,13 +36,22 @@ export default () => {
                 url: track.album.images[1]?.url
             }))
         }
-        imagePainter(`my top ${imageSource} ${MonthNames[date.getMonth()]} ${date.getFullYear()}`, images, imageStyle, canvas.current).then(
+        imagePainter({
+            canvas: canvas.current,
+            type: imageStyle,
+            images,
+            options: {
+                title: `My top ${imageSource} ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
+                backgroundColor,
+                font
+            }
+        }).then(
             () => {
                 setCanvasState('FULL');
                 downloadLink.current = canvas.current.toDataURL('image/jpg');
             }
         );
-    }, [canvasState, data])
+    };
     return <div className={styles.container}>
         <Card>
             <h1>Create an image</h1>
@@ -68,6 +79,17 @@ export default () => {
                         <option value="photo">Photo</option>
                         <option value="circle">Circle</option>
                     </select>
+                </div>
+                <div className={styles.selectContainer}>
+                    <label htmlFor='font'>Font</label>
+                    <select id='font'>
+                        <option value='bold 48px Indie Flower'>Indie Flower</option>
+                        <option value='bold 48px Calibri'>Calibri</option>
+                    </select>
+                </div>
+                <div className={styles.selectContainer}>
+                    <label htmlFor='backgroundColor'>Background Color</label>
+                    <input value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} type="color"/>
                 </div>
                 <Button className={styles.button} onClick={createImage}>Create</Button>
             </form>
