@@ -37,7 +37,7 @@ export default () => {
         imagePainter(`my top ${imageSource} ${MonthNames[date.getMonth()]} ${date.getFullYear()}`, images, imageStyle, canvas.current).then(
             () => {
                 setCanvasState('FULL');
-                downloadLink.current.href = canvas.current.toDataURL('image/jpg');
+                downloadLink.current = canvas.current.toDataURL('image/jpg');
             }
         );
     }, [canvasState, data])
@@ -76,7 +76,7 @@ export default () => {
                 <>
                     <p className={styles.hint}>Download to see full quality</p>
                     <div className={styles.buttonContainer}>
-                        <a ref={downloadLink} className={styles.download} href='https://spotida.ir'
+                        <a className={styles.download} href={downloadLink.current}
                            download="spotida.jpg"><FaDownload/> Download</a>
                     </div>
                 </> : null}
