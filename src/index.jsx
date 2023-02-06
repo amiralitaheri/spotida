@@ -17,6 +17,7 @@ import LandingPage from './pages/LandingPage'
 import CallbackPage from "./pages/CallbackPage";
 import DashboardPage from "./pages/DashboardPage";
 import {ErrorBoundary} from "./components/ErrorBoundary";
+import * as Sentry from "@sentry/react";
 
 
 const persistConfig = {
@@ -30,6 +31,10 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(ReduxThunk)));
 const persistor = persistStore(store);
+
+Sentry.init({
+    dsn: "https://cf703810f80544ab81a28d62b0585f12@o4504632718786560.ingest.sentry.io/4504632721014784",
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

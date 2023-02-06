@@ -1,4 +1,5 @@
 import React from "react";
+import {captureException} from "@sentry/react";
 import ErrorPage from "../pages/ErrorPage";
 
 export class ErrorBoundary extends React.Component {
@@ -12,14 +13,7 @@ export class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, errorInfo) {
-        try {
-            window.gtag('event', 'exception', {
-                'description': `${error.toString()}\n${errorInfo.componentStack}`,
-                'fatal': true
-            });
-        } catch (e) {
-            console.log('Failed to send event to google analytics');
-        }
+        captureException(error);
     }
 
     render() {
