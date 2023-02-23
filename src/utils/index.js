@@ -105,5 +105,10 @@ export const calculateTopGenres = (listArtists) => {
     return result;
 }
 
+export const fetchToJson = response => {
+    if (response.ok) return response.json()
+    throw new Error(response)
+}
+
 export * from './data';
 export * from './sampleData';

@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 import {clonePlaylist as clone} from "../../utils/spotify";
 import {useSelector} from "react-redux";
 import PlaylistPreview from "../PlaylistPreview";
+import {fetchToJson} from "../../utils";
 
 export default (props) => {
     const [playlistState, setPlaylistState] = useState({state: 'NORMAL'});
@@ -21,9 +22,7 @@ export default (props) => {
                 headers: {
                     'Authorization': `Bearer ${data.token}`,
                 }
-            }).then(
-                response => response.json()
-            ));
+            }).then(fetchToJson));
             if (playlist.status !== undefined) {
                 console.log(playlist);
                 throw new Error();
