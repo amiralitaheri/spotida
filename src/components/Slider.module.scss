@@ -4,11 +4,13 @@
   text-transform: capitalize;
   margin-top: 2rem;
   display: flex;
+  gap: 8px;
+  align-items: end;
 }
 
 .infoIcon {
-  margin-left: 0.5em;
-
+  display: flex;
+  height: fit-content;
   &:hover {
     cursor: help;
   }

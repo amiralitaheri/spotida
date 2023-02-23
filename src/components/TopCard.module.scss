@@ -46,6 +46,7 @@
     @media (hover: hover) {
       &:hover {
         color: $greyTextPrimary;
+        cursor: pointer;
       }
     }
 

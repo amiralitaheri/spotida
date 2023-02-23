@@ -61,7 +61,7 @@ export default (props) => {
         <form className={styles.form}>
             <div className={styles.selectContainer}>
                 <label htmlFor='playlistUrl'>Playlist Url</label>
-                <input ref={urlRef} id='playlistUrl' onChange={fetchPlaylist}/>
+                <input ref={urlRef} id='playlistUrl' onChange={fetchPlaylist} style={{flexGrow: 1}}/>
             </div>
             {playlist != null ? <PlaylistPreview imageUrl={playlist.images[0].url}
                                                  name={playlist.name}

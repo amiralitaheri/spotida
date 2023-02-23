@@ -39,7 +39,9 @@ const CustomSlider = withStyles({
 export default React.memo((props) => {
     return <>
         <label id={props.name} className={styles.label}>
-            {props.name}
+            <span>
+                {props.name}
+            </span>
             <Tooltip title={props.description} placement='right'>
                 <div className={styles.infoIcon}><BiInfoCircle/></div>
             </Tooltip>
