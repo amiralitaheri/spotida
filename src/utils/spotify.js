@@ -15,7 +15,7 @@ export const addTracksToPlaylist = async (token, uris, playlistId) => {
             uris: uris.slice(0, 100)
         })
     })
-    if (response.status !== 201) {
+    if (response.status !== 200 && response.status !== 201) {
         console.log(response);
         throw new Error(`Received a ${response.status} from Spotify`);
     }
