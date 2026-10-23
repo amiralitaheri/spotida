@@ -142,7 +142,7 @@ export default (props) => {
                 throw new Error(`Received a ${response.status} from Spotify`);
             }
             const browse = await response.json();
-            let playlist = await Spotify.createPlaylist(data.token, data.me.id, JSON.stringify({
+            let playlist = await Spotify.createPlaylist(data.token, JSON.stringify({
                 name,
                 description: JSON.stringify(state)
             }));

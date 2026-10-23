@@ -1,7 +1,6 @@
-import {fetchToJson} from "./index";
-
 export const clientId = 'ada67d50e3b84a28b5c7f65eb8bf1eae';
-export const scopes = ['user-top-read', 'playlist-modify-public'/*, 'ugc-image-upload'*/].join(' ');
+// playlist-read-* lets the clone tool read the user's own private and collaborative playlists.
+export const scopes = ['user-top-read', 'playlist-modify-public', 'playlist-read-private', 'playlist-read-collaborative'/*, 'ugc-image-upload'*/].join(' ');
 
 // Spotify removed the implicit grant (response_type=token), so we use the
 // Authorization Code flow with PKCE, which works without a client secret.
@@ -75,92 +74,75 @@ export const exchangeCodeForToken = (code) => {
     return tokenRequests[code];
 };
 
+const apiRequest = async (token, url, options = {}) => {
+    const response = await fetch(url.startsWith('http') ? url : `https://api.spotify.com/v1${url}`, {
+        ...options,
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+            ...(options.body ? {'Content-Type': 'application/json'} : {}),
+        },
+    });
+    if (!response.ok) {
+        console.log(response);
+        throw new Error(`Received a ${response.status} from Spotify`);
+    }
+    return response.json();
+}
+
+// POST /playlists/{id}/items takes at most 100 URIs per request.
 export const addTracksToPlaylist = async (token, uris, playlistId) => {
-    const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            uris: uris.slice(0, 100)
-        })
-    })
-    if (response.status !== 200 && response.status !== 201) {
-        console.log(response);
-        throw new Error(`Received a ${response.status} from Spotify`);
+    for (let i = 0; i < uris.length; i += 100) {
+        await apiRequest(token, `/playlists/${playlistId}/items`, {
+            method: 'POST',
+            body: JSON.stringify({uris: uris.slice(i, i + 100)}),
+        });
     }
-    return response.json();
 }
 
-export const createPlaylist = async (token, userId, body) => {
-    const response = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: body,
+// POST /users/{user_id}/playlists was removed in favour of POST /me/playlists.
+export const createPlaylist = (token, body) =>
+    apiRequest(token, '/me/playlists', {method: 'POST', body});
+
+// GET /artists/{id}/top-tracks was removed. Search for the artist's tracks instead
+// (search returns at most 10 results) and keep only tracks credited to that artist.
+export const getArtistTracks = async (token, artist, limit = 5) => {
+    const params = new URLSearchParams({
+        q: `artist:"${artist.name.replace(/"/g, '')}"`,
+        type: 'track',
+        limit: '10',
     });
-    if (response.status !== 200 && response.status !== 201) {
-        console.log(response);
-        throw new Error(`Received a ${response.status} from Spotify`);
-    }
-    return response.json();
+    const response = await apiRequest(token, `/search?${params.toString()}`);
+    return response.tracks.items
+        .filter(track => track && track.artists.some(a => a.id === artist.id))
+        .slice(0, limit);
 }
 
-export const getArtistTopTracks = async (token, artistID) => {
-    const response = await fetch(`https://api.spotify.com/v1/artists/${artistID}/top-tracks?country=from_token`, {
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json',
-        },
-    });
-    if (response.status !== 200 && response.status !== 201) {
-        console.log(response);
-        throw new Error(`Received a ${response.status} from Spotify`);
-    }
-    return response.json();
-}
+// Playlist objects renamed `tracks` -> `items` and `track` -> `item`; read either.
+// `items` is only returned for playlists the user owns or collaborates on.
+export const getPlaylistPage = (playlist) => playlist.items || playlist.tracks || null;
 
-export const clonePlaylist = async (token, userId, playlist) => {
-    //create playlist
-    const clone = await createPlaylist(token, userId, JSON.stringify({
-        'name': `${playlist.name} clone ${(new Date()).toLocaleDateString("en-US")}`,
-        'description': `${playlist.description} cloned by Spotida`
+const getEntryUris = (page) => page.items
+    .map(entry => entry.item || entry.track)
+    .filter(item => item && item.uri && !item.uri.startsWith('spotify:local:'))
+    .map(item => item.uri);
+
+export const clonePlaylist = async (token, playlist) => {
+    let page = getPlaylistPage(playlist);
+    if (!page || !Array.isArray(page.items)) {
+        throw new Error('Spotify only lets Spotida read playlists you own or collaborate on.');
+    }
+
+    const uris = getEntryUris(page);
+    while (page.next) {
+        page = await apiRequest(token, page.next);
+        uris.push(...getEntryUris(page));
+    }
+
+    const clone = await createPlaylist(token, JSON.stringify({
+        name: `${playlist.name} clone ${(new Date()).toLocaleDateString("en-US")}`,
+        description: `${playlist.description || ''} cloned by Spotida`.trim(),
     }));
-
-    //set image
-    // const image = await fetch(playlist.images[0].url);
-    // const blob = await image.blob();
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //     fetch(`https://api.spotify.com/v1/playlists/${clone.id}/images`, {
-    //         method: 'put',
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`,
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'image/jpeg',
-    //         },
-    //         body: reader.result
-    //     })
-    // };
-    // reader.readAsDataURL(blob);
-
-    //add tracks
-    await addTracksToPlaylist(token, playlist.tracks.items.map(item => item.track.uri), clone.id);
-    let tracks = playlist.tracks;
-    while (tracks.next != null) {
-        tracks = await fetch(tracks.next, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-        }).then(fetchToJson);
-        await addTracksToPlaylist(token, tracks.items.map(item => item.track.uri), clone.id);
-    }
-
+    await addTracksToPlaylist(token, uris, clone.id);
     return clone;
 }
-

@@ -17,7 +17,7 @@ export default (props) => {
         event.preventDefault();
         setPlaylistState({state: 'PENDING'});
         try {
-            let playlist = await Spotify.createPlaylist(data.token, data.me.id, JSON.stringify({
+            let playlist = await Spotify.createPlaylist(data.token, JSON.stringify({
                 name: `Top Tracks ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
                 description: `Top Tracks ${MonthNames[date.getMonth()]} ${date.getFullYear()}, Time range: ${timeRange.current.value}, Created by Spotida`
             }));
