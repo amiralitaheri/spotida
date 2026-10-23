@@ -3,6 +3,78 @@ import {fetchToJson} from "./index";
 export const clientId = 'ada67d50e3b84a28b5c7f65eb8bf1eae';
 export const scopes = ['user-top-read', 'playlist-modify-public'/*, 'ugc-image-upload'*/].join(' ');
 
+// Spotify removed the implicit grant (response_type=token), so we use the
+// Authorization Code flow with PKCE, which works without a client secret.
+const VERIFIER_KEY = 'spotify_code_verifier';
+
+export const getRedirectUri = () => `${window.location.origin}/callback/`;
+
+const base64UrlEncode = (bytes) =>
+    btoa(String.fromCharCode(...new Uint8Array(bytes)))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+
+const generateCodeVerifier = () => {
+    const bytes = new Uint8Array(64);
+    crypto.getRandomValues(bytes);
+    return base64UrlEncode(bytes);
+};
+
+const generateCodeChallenge = async (verifier) => {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+    return base64UrlEncode(digest);
+};
+
+export const redirectToAuthorize = async () => {
+    const verifier = generateCodeVerifier();
+    const challenge = await generateCodeChallenge(verifier);
+    window.localStorage.setItem(VERIFIER_KEY, verifier);
+
+    const params = new URLSearchParams({
+        client_id: clientId,
+        response_type: 'code',
+        redirect_uri: getRedirectUri(),
+        scope: scopes,
+        code_challenge_method: 'S256',
+        code_challenge: challenge,
+    });
+    window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
+};
+
+// An authorization code can only be redeemed once. Cache the request per code so
+// React StrictMode's double-invoked effects don't trigger a second exchange.
+const tokenRequests = {};
+
+export const exchangeCodeForToken = (code) => {
+    if (!tokenRequests[code]) {
+        tokenRequests[code] = (async () => {
+            const verifier = window.localStorage.getItem(VERIFIER_KEY);
+            if (!verifier) {
+                throw new Error('Missing PKCE code verifier, please sign in again');
+            }
+            const response = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: new URLSearchParams({
+                    client_id: clientId,
+                    grant_type: 'authorization_code',
+                    code,
+                    redirect_uri: getRedirectUri(),
+                    code_verifier: verifier,
+                }),
+            });
+            const json = await response.json();
+            if (!response.ok) {
+                throw new Error(`Token exchange failed: ${json.error_description || json.error || response.status}`);
+            }
+            window.localStorage.removeItem(VERIFIER_KEY);
+            return json;
+        })();
+    }
+    return tokenRequests[code];
+};
+
 export const addTracksToPlaylist = async (token, uris, playlistId) => {
     const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
         headers: {

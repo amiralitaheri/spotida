@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {login, getData} from '../redux/actions';
+import {login, getData, error} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {Navigate, useLocation} from "react-router";
 import Container from "../components/Container";
 import styles from './CallbackPage.module.scss';
 import Card from "../components/Card";
-import {parseUrl} from "../utils";
+import {exchangeCodeForToken} from "../utils/spotify";
 import LoginButton from "../components/LoginButton";
 import ErrorPage from "./ErrorPage";
 
@@ -18,14 +18,32 @@ export default () => {
     const location = useLocation();
 
     useEffect(() => {
-        const urlHashParameters = parseUrl(location.hash);
-        const urlQueryParameters = parseUrl(location.search);
-        if (urlQueryParameters['?error'] === 'access_denied') {
+        const params = new URLSearchParams(location.search);
+        const authError = params.get('error');
+        const code = params.get('code');
+
+        if (authError === 'access_denied') {
             setAccessDeniedError(true);
-        } else {
-            dispatch(login(urlHashParameters['#access_token']));
-            dispatch(getData());
+            return;
         }
+        if (authError || !code) {
+            dispatch(error(`While signing in with Spotify:\n${authError || 'No authorization code received'}`));
+            return;
+        }
+
+        let cancelled = false;
+        exchangeCodeForToken(code)
+            .then(({access_token}) => {
+                if (cancelled) return;
+                dispatch(login(access_token));
+                dispatch(getData());
+            })
+            .catch(err => {
+                if (!cancelled) dispatch(error(`While signing in with Spotify:\n${err.message}`));
+            });
+        return () => {
+            cancelled = true;
+        };
     }, [dispatch, location]);
 
     if (isDataLoaded === true) {
