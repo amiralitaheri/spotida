@@ -29,11 +29,13 @@ export const parseUrl = (parameters) => {
     return result;
 }
 
+// Spotify removed `popularity` from tracks and artists for Development Mode apps;
+// returns null when it isn't available.
 export const getLeastPopular = (list) => {
     let result = null;
-    let resultPopularity = 100;
+    let resultPopularity = Infinity;
     list.items.forEach(item => {
-        if (item.popularity < resultPopularity) {
+        if (typeof item.popularity === 'number' && item.popularity < resultPopularity) {
             resultPopularity = item.popularity;
             result = item;
         }
@@ -77,7 +79,7 @@ export const calculateTopGenres = (listArtists) => {
     const topGenres = {}
     listArtists.forEach(list => {
         list.items.forEach(artist => {
-            artist.genres.forEach(genre => {
+            (artist.genres || []).forEach(genre => {
                 if (genre in topGenres) {
                     topGenres[genre] += 1;
                 } else {
@@ -101,7 +103,7 @@ export const calculateTopGenres = (listArtists) => {
             others[1] += item[1];
         }
     })
-    result.push(others)
+    if (others[1] > 0) result.push(others);
     return result;
 }
 

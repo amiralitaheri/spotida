@@ -10,13 +10,15 @@ import {useSelector} from "react-redux";
 
 export default (props) => {
     const hasAudioFeatures = useSelector(state => Boolean(state.data.audioFeaturesAverage));
+    const hasGenres = useSelector(state => state.data.topGenres.some(item => item[0] !== 'others'));
+    if (!hasAudioFeatures && !hasGenres) return null;
     return <Card className={cn(props.className, styles.card)}>
-        <div className={styles.chart}>
+        {hasGenres && <div className={styles.chart}>
             <h2>Top genres</h2>
             <div className={styles.chartContainer}>
                 <DonutChart/>
             </div>
-        </div>
+        </div>}
         {hasAudioFeatures && <div className={styles.chart}>
             <h2>Music Breakdown</h2>
             <div className={styles.chartContainer}>

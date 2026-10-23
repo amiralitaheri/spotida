@@ -52,21 +52,21 @@ export default (props) => {
     let personalmessage = getPersonalmessage(topGenre, data.audioFeaturesAverage);
 
     return <Card className={cn(props.className, styles.card)}>
-        <img src={(data.me.images[0] && data.me.images[0].url) || 'profile-default.jpg'} alt='profile'/>
+        <img src={data.me.images?.[0]?.url || 'profile-default.jpg'} alt='profile'/>
         <h2>{data.me.display_name}</h2>
         <hr/>
         <p className={styles.personalmessage}>{personalmessage}</p>
         <ul className={styles.list}>
-            <li><span className={styles.tag}>Top Artist</span><span
-                className={styles.value}>{data.artistsL.items[0].name}</span></li>
-            <li><span className={styles.tag}>Top Track</span><span
-                className={styles.value}>{data.tracksL.items[0].name}</span></li>
-            <li><span className={styles.tag}>Top Genre</span><span
-                className={styles.value}>{topGenre || '-'}</span></li>
-            <li><span className={styles.tag}>Least Popular Track</span><span
-                className={styles.value}>{data.leastPopularTrack.name}</span></li>
-            <li><span className={styles.tag}>Least Popular Artist</span><span
-                className={styles.value}>{data.leastPopularArtist.name}</span></li>
+            {data.artistsL.items[0] && <li><span className={styles.tag}>Top Artist</span><span
+                className={styles.value}>{data.artistsL.items[0].name}</span></li>}
+            {data.tracksL.items[0] && <li><span className={styles.tag}>Top Track</span><span
+                className={styles.value}>{data.tracksL.items[0].name}</span></li>}
+            {topGenre && <li><span className={styles.tag}>Top Genre</span><span
+                className={styles.value}>{topGenre}</span></li>}
+            {data.leastPopularTrack && <li><span className={styles.tag}>Least Popular Track</span><span
+                className={styles.value}>{data.leastPopularTrack.name}</span></li>}
+            {data.leastPopularArtist && <li><span className={styles.tag}>Least Popular Artist</span><span
+                className={styles.value}>{data.leastPopularArtist.name}</span></li>}
         </ul>
 
     </Card>

@@ -6,7 +6,6 @@ import * as Spotify from "../../utils/spotify";
 import {useSelector} from "react-redux";
 import {MonthNames} from "../../utils";
 import PlaylistResult from "../PlaylistResult";
-import {getArtistTopTracks} from "../../utils/spotify";
 
 const date = new Date();
 
@@ -18,16 +17,26 @@ export default (props) => {
         event.preventDefault();
         setPlaylistState({state: 'PENDING'});
         try {
-            const tracks = await Promise.all(
-                data['artists' + timeRange.current.value].items.slice(0, 20).map(artist => getArtistTopTracks(data.token, artist.id).then(response => response.tracks))
-            );
+            const artists = data['artists' + timeRange.current.value].items.slice(0, 20);
+            // Prefer the user's own top tracks by each artist, then fill up from search.
+            const userTopTracks = [...data.tracksS.items, ...data.tracksM.items, ...data.tracksL.items];
+            const tracks = await Promise.all(artists.map(async artist => {
+                const own = userTopTracks.filter(track => track.artists.some(a => a.id === artist.id));
+                const searched = own.length >= 5 ? [] : await Spotify.getArtistTracks(data.token, artist, 10).catch(() => []);
+                const unique = new Map();
+                [...own, ...searched].forEach(track => unique.set(track.uri, track));
+                return [...unique.values()].slice(0, 5);
+            }));
             const tracksUri = [];
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < tracks.length; j++) {
-                    tracksUri.push(tracks[j][i].uri)
+                    if (tracks[j][i]) tracksUri.push(tracks[j][i].uri);
                 }
             }
-            let playlist = await Spotify.createPlaylist(data.token, data.me.id, JSON.stringify({
+            if (tracksUri.length === 0) {
+                throw new Error('Could not find tracks for your top artists.');
+            }
+            let playlist = await Spotify.createPlaylist(data.token, JSON.stringify({
                 name: `Top Artist ${MonthNames[date.getMonth()]} ${date.getFullYear()}`,
                 description: `Top Artist ${MonthNames[date.getMonth()]} ${date.getFullYear()}, Time range: ${timeRange.current.value}, Created by Spotida`
             }));
@@ -45,7 +54,7 @@ export default (props) => {
     }, [data])
     return <Card className={props.className}>
         <h1>Top Artist Playlist</h1>
-        <p>Create a playlist with your top 20 artists, top 5 tracks.</p>
+        <p>Create a playlist with 5 tracks from each of your top 20 artists.</p>
         <form className={styles.form}>
             <div className={styles.selectContainer}>
                 <label htmlFor='timeRange'>Time Range</label>
