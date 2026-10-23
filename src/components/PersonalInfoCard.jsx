@@ -5,7 +5,12 @@ import {cn} from "../utils";
 import {useSelector} from "react-redux";
 
 const getPersonalmessage = (topGenre, audioFeaturesAverage) => {
-    let message = `A big ${topGenre} fan,`;
+    const fan = topGenre ? `A big ${topGenre} fan` : 'A true music fan';
+    // Audio features are unavailable for most apps since Spotify deprecated the endpoint.
+    if (!audioFeaturesAverage) {
+        return `${fan}!`;
+    }
+    let message = `${fan},`;
 
     let key = null;
     let value = -1;
@@ -43,7 +48,8 @@ const getPersonalmessage = (topGenre, audioFeaturesAverage) => {
 
 export default (props) => {
     const data = useSelector(state => state.data);
-    let personalmessage = getPersonalmessage(data.topGenres[0][0] === 'others' ? data.topGenres[1][0] : data.topGenres[0][0], data.audioFeaturesAverage);
+    const topGenre = (data.topGenres.find(item => item[0] !== 'others') || [null])[0];
+    let personalmessage = getPersonalmessage(topGenre, data.audioFeaturesAverage);
 
     return <Card className={cn(props.className, styles.card)}>
         <img src={(data.me.images[0] && data.me.images[0].url) || 'profile-default.jpg'} alt='profile'/>
@@ -56,7 +62,7 @@ export default (props) => {
             <li><span className={styles.tag}>Top Track</span><span
                 className={styles.value}>{data.tracksL.items[0].name}</span></li>
             <li><span className={styles.tag}>Top Genre</span><span
-                className={styles.value}>{data.topGenres[0][0]}</span></li>
+                className={styles.value}>{topGenre || '-'}</span></li>
             <li><span className={styles.tag}>Least Popular Track</span><span
                 className={styles.value}>{data.leastPopularTrack.name}</span></li>
             <li><span className={styles.tag}>Least Popular Artist</span><span
