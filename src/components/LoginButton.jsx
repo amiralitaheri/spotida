@@ -6,7 +6,7 @@ import * as Spotify from '../utils/spotify';
 export default () =>
     <button className={styles.loginButton} onClick={event => {
         event.preventDefault();
-        window.location.href = `https://accounts.spotify.com/authorize?client_id=${Spotify.clientId}&redirect_uri=${window.location}callback/&scope=${Spotify.scopes}&response_type=token`;
+        Spotify.redirectToAuthorize();
     }}>
         <FaSpotify/>
         Sign in with Spotify
